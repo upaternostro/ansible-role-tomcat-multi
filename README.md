@@ -2,7 +2,7 @@
 
 Installs Apache Tomcat Java Application server. Most complete Tomcat installation, supporting, init.d script, application naming, hugepages, hardening, beautiful error pages, sha512 hashed passwords, JMX configuration, multiple Tomcat versions, separated catalina_home and caralina_base.
 
-[![Build Status](https://travis-ci.org/KAMI911/ansible-role-tomcat.svg?branch=master)](https://travis-ci.org/KAMI911/ansible-role-tomcat)
+[![Build Status](https://travis-ci.org/KAMI911/ansible-role-tomcat-multi.svg?branch=master)](https://travis-ci.org/KAMI911/ansible-role-tomcat-multi)
 
 ## Table of Contents
 
@@ -118,11 +118,11 @@ This role was created in 2016-2017 by Kálmán Szalai - KAMI
 ## Support
 
 If you have any question, do not hesitate and drop me a line.
-If you found a bug, or have a feature request, you can [fill an issue](https://github.com/KAMI911/ansible-role-tomcat/issues).
+If you found a bug, or have a feature request, you can [fill an issue](https://github.com/KAMI911/ansible-role-tomcat-multi/issues).
 
 ## Contributing
 
-There are many ways to contribute to ansible-role-tomcat -- whether it be sending patches,
+There are many ways to contribute to ansible-role-tomcat-multi -- whether it be sending patches,
 testing, reporting bugs, or reviewing and updating the documentation. Every
 contribution is appreciated!
 
@@ -130,7 +130,7 @@ Please continue reading in the [contributing chapter](CONTRIBUTING.md).
 
 ### Fork me on Github
 
-https://github.com/KAMI911/ansible-role-tomcat
+https://github.com/KAMI911/ansible-role-tomcat-multi
 
 ## Donation
 
