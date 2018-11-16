@@ -1,9 +1,11 @@
-#
-# Installs Tomcat, following best practices of separating CATALINA_BASE directory from CATALINA_HOME
-#
 ---
-- { include_tasks: xmlx-package-Debian.yml, when: "ansible_os_family == 'Debian'", static: no }
-- { include_tasks: xmlx-package-RedHat.yml, when: "ansible_os_family == 'RedHat'", static: no }
+#
+# Installs Tomcat, following best practices of separating
+# CATALINA_BASE directory from CATALINA_HOME
+#
+
+- { include_tasks: xmlx-package-Debian.yml, when: "ansible_os_family == 'Debian'", static: false }
+- { include_tasks: xmlx-package-RedHat.yml, when: "ansible_os_family == 'RedHat'", static: false }
 
 - name: install Tomcat prerequisite
   include_tasks: install-prerequisite.yml
@@ -14,7 +16,7 @@
 - name: install Tomcat
   include_tasks: install-tomcat.yml
 
-#- name: remove bat files on non-Windows systems
+# - name: remove bat files on non-Windows systems
 #  include: removebat-nonwindows.yml
 #  static: no
 #  when: "ansible_os_family != 'Windows'"
@@ -41,5 +43,4 @@
 
 - name: manage firewalld
   include_tasks: manage_firewalld.yml
-  when: tomcat_manage_firewalld
-
+  when: tomcat_manage_firewalld == true
