@@ -1,0 +1,11 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    tomcat_installer_force_download: false
+    tomcat_installer_force_overwrite: false
+    tomcat_installer_keep: true
+    tomcat_installer_local: true
+    tomcat_force_update: false
+  roles:
+    - role: ansible-role-tomcat
