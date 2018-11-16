@@ -8,4 +8,4 @@
     tomcat_installer_local: true
     tomcat_force_update: false
   roles:
-    - role: ansible-role-tomcat
+    - role: ansible-role-tomcat-multi
