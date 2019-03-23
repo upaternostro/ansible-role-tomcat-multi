@@ -20,7 +20,7 @@
     permanent: true
     immediate: true
     state: enabled
-    zone: '{{ item.0.http_zone }}'
+    zone: '{{ item.1.http_zone }}'
   with_nested:
     - '{{ tomcat_http_source }}'
     - '{{ tomcat_instance }}'
@@ -31,7 +31,7 @@
     permanent: true
     immediate: true
     state: enabled
-    zone: '{{ item.0.ajb_zone }}'
+    zone: '{{ item.1.ajb_zone }}'
   with_nested:
     - '{{ tomcat_ajb_source }}'
     - '{{ tomcat_instance }}'
@@ -42,7 +42,7 @@
     permanent: true
     immediate: true
     state: enabled
-    zone: '{{ item.0.https_zone }}'
+    zone: '{{ item.1.https_zone }}'
   with_nested:
     - '{{ tomcat_https_source }}'
     - '{{ tomcat_instance }}'
@@ -65,5 +65,5 @@
     immediate: true
     state: enabled
     zone: '{{ tomcat_shutdown_zone }}'
-  with_items:
+  with_items:	
     - '{{ tomcat_https_source }}'
