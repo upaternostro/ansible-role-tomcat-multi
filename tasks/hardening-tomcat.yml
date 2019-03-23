@@ -4,11 +4,12 @@
 #
 
 - name: copy recommended default applications
-  command: "cp -r --preserve=mode,ownership,timestamps {{ tomcat_catalina_home }}/webapps/{{ item }} {{ tomcat_catalina_base }}/webapps/{{ item }}"
+  command: "cp -r --preserve=mode,ownership,timestamps {{ tomcat_catalina_home }}/webapps/{{ item.0 }} {{ tomcat_system_home }}{{ item.1.instance_name }}/webapps/{{ item.0 }}"
   args:
-    creates: "{{ tomcat_catalina_base }}/webapps/{{ item }}/"
-  with_items:
+    creates: "{{ tomcat_system_home }}{{ item.1.instance_name }}/webapps/{{ item.0 }}/"
+  with_nested:
     - "{{ tomcat_copy_webapps }}"
+    - "{{ tomcat_instance }}"
 
 - name: generate manager context file
   template:
