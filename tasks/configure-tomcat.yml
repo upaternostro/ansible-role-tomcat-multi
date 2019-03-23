@@ -8,7 +8,7 @@
     src: setenv.sh.j2
     dest: "{{ tomcat_system_home }}{{ item.instance_name }}/bin/setenv.sh"
     mode: ug+x
-  with_items: {{ tomcat_instance }}
+  with_items: "{{ tomcat_instance }}"
 
 - name: "generate a custom '.jmxremote.password' from template, to use pasword protected JMX ports"
   template:
@@ -17,7 +17,7 @@
     owner: "{{ tomcat_system_user }}"
     group: "{{ tomcat_system_group }}"
     mode: 0600
-  with_items: {{ tomcat_instance }}
+  with_items: "{{ tomcat_instance }}"
 
 - name: "generate a custom 'jmxremote.access' from template, to use pasword protected JMX ports"
   template:
@@ -26,7 +26,7 @@
     owner: "{{ tomcat_system_user }}"
     group: "{{ tomcat_system_group }}"
     mode: 0640
-  with_items: {{ tomcat_instance }}
+  with_items: "{{ tomcat_instance }}"
 
 - name: generate Tomcat init script
   template:
@@ -35,7 +35,7 @@
     owner: "{{ tomcat_system_user }}"
     group: "{{ tomcat_system_group }}"
     mode: 0750
-  with_items: {{ tomcat_instance }}
+  with_items: "{{ tomcat_instance }}"
 
 - name: "Prepare daily catalina.out logrotate"
   template:

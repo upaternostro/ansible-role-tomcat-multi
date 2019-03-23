@@ -15,7 +15,7 @@
     state: directory
     owner: "{{ tomcat_system_user }}"
     group: "{{ tomcat_system_group }}"
-  with_items: {{ tomcat_instance }}
+  with_items: "{{ tomcat_instance }}"
 
 - name: create heapdumps directory
   file:
@@ -24,7 +24,7 @@
     owner: "{{ tomcat_root_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rwx,o="
-  with_items: {{ tomcat_instance }}
+  with_items: "{{ tomcat_instance }}"
 
 - name: create CATALINA_BASE/bin directory
   file:
@@ -33,7 +33,7 @@
     owner: "{{ tomcat_root_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rx,o="
-  with_items: {{ tomcat_instance }}
+  with_items: "{{ tomcat_instance }}"
 
 - name: create CATALINA_BASE/conf directory
   file:
@@ -42,7 +42,7 @@
     owner: "{{ tomcat_root_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rx,o="
-  with_items: {{ tomcat_instance }}
+  with_items: "{{ tomcat_instance }}"
 
 - name: create CATALINA_BASE/conf/Catalina directory
   file:
@@ -51,7 +51,7 @@
     owner: "{{ tomcat_system_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rx,o="
-  with_items: {{ tomcat_instance }}
+  with_items: "{{ tomcat_instance }}"
 
 - name: create CATALINA_BASE/logs directory
   file:
@@ -71,7 +71,7 @@
     owner: "{{ tomcat_root_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rx,o="
-  with_items: {{ tomcat_instance }}
+  with_items: "{{ tomcat_instance }}"
 
 - name: create CATALINA_BASE/lib/ext directory
   file:
@@ -80,7 +80,7 @@
     owner: "{{ tomcat_root_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rx,o="
-  with_items: {{ tomcat_instance }}
+  with_items: "{{ tomcat_instance }}"
 
 - name: create CATALINA_BASE/shared/lib directory
   file:
@@ -89,7 +89,7 @@
     owner: "{{ tomcat_root_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rx,o="
-  with_items: {{ tomcat_instance }}
+  with_items: "{{ tomcat_instance }}"
 
 - name: create CATALINA_BASE/temp directory
   file:
@@ -98,7 +98,7 @@
     owner: "{{ tomcat_system_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rwx,o="
-  with_items: {{ tomcat_instance }}
+  with_items: "{{ tomcat_instance }}"
 
 - name: create CATALINA_BASE/webapps directory
   file:
@@ -107,7 +107,7 @@
     owner: "{{ tomcat_root_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rwx,o="
-  with_items: {{ tomcat_instance }}
+  with_items: "{{ tomcat_instance }}"
 
 - name: create CATALINA_BASE/work directory
   file:
@@ -116,7 +116,7 @@
     owner: "{{ tomcat_system_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rwx,o="
-  with_items: {{ tomcat_instance }}
+  with_items: "{{ tomcat_instance }}"
 
 - name: symlink catalina script
   file:
@@ -124,7 +124,7 @@
     dest: "{{ tomcat_system_home }}{{ item.instance_name }}/bin/catalina.sh"
     state: link
     force: true
-  with_items: {{ tomcat_instance }}
+  with_items: "{{ tomcat_instance }}"
 
 - name: symlink startup script
   file:
@@ -132,7 +132,7 @@
     dest: "{{ tomcat_system_home }}{{ item.instance_name }}/bin/startup.sh"
     state: link
     force: true
-  with_items: {{ tomcat_instance }}
+  with_items: "{{ tomcat_instance }}"
 
 - name: symlink shutdown script
   file:
@@ -140,7 +140,7 @@
     dest: "{{ tomcat_system_home }}{{ item.instance_name }}/bin/shutdown.sh"
     state: link
     force: true
-  with_items: {{ tomcat_instance }}
+  with_items: "{{ tomcat_instance }}"
 
 - name: 'generate configuartion from template, using the default recommended settings'
   template:

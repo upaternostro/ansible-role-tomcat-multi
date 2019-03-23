@@ -10,7 +10,7 @@
     owner: "{{ tomcat_root_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rx,o="
-  with_items: {{ tomcat_instance }}
+  with_items: "{{ tomcat_instance }}"
 
 - name: error pages | download custom erropages for Tomcat
   get_url:
