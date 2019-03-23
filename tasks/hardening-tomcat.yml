@@ -17,4 +17,4 @@
     owner: "{{ tomcat_system_user }}"
     group: "{{ tomcat_system_group }}"
     mode: 0640
-  with_items: {{ tomcat_instance}}
+  with_items: {{ tomcat_instance }}
