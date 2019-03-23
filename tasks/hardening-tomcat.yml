@@ -13,7 +13,8 @@
 - name: generate manager context file
   template:
     src: manager-context.xml.j2
-    dest: "{{ tomcat_catalina_base }}/webapps/manager/META-INF/context.xml"
+    dest: "{{ tomcat_system_home }}{{ item.instance_name }}/webapps/manager/META-INF/context.xml"
     owner: "{{ tomcat_system_user }}"
     group: "{{ tomcat_system_group }}"
     mode: 0640
+  with_items: {{ tomcat_instance}}

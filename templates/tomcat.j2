@@ -24,8 +24,8 @@
 # Initially forked from: gist.github.com/valotas/1000094
 # Source: gist.github.com/miglen/5590986
 
-NAME="{{ tomcat_process_name }}"
-DESC="{{ tomcat_process_name }} servlet engine"
+NAME="{{ item.instance_name }}"
+DESC="{{ item.instance_name }} servlet engine"
 DEFAULT="/etc/default/$NAME"
 JVM_TMP="/tmp/tomcat-$NAME-tmp"
 
@@ -42,7 +42,7 @@ export PATH="$JAVA_HOME/bin:$PATH"
 export CATALINA_HOME="{{ tomcat_catalina_home }}"
 
 # CATALINA_BASE is the directory for per-instance configuration files and webapps
-export CATALINA_BASE="{{ tomcat_catalina_base }}"
+export CATALINA_BASE="{{ tomcat_system_home }}{{ item.instance_name }}
 
 #TOMCAT_USER is the default user of tomcat
 export TOMCAT_USER="{{ tomcat_system_user }}"

@@ -5,24 +5,27 @@
 
 - name: error pages | create errorpages directory
   file:
-    path: "{{ tomcat_catalina_base }}/webapps/ROOT/errorpages/"
+    path: "{{ tomcat_system_home }}{{ item.instance_name }}/webapps/ROOT/errorpages/"
     state: directory
     owner: "{{ tomcat_root_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rx,o="
+  with_items: {{ tomcat_instance}}
 
 - name: error pages | download custom erropages for Tomcat
   get_url:
-    url: "{{ tomcat_custom_error_pages_url }}/{{ item }}.jsp"
-    dest: "{{ tomcat_catalina_base }}/webapps/ROOT/errorpages/{{ item }}.jsp"
-  with_items:
+    url: "{{ tomcat_custom_error_pages_url }}/{{ item.0 }}.jsp"
+    dest: "{{ tomcat_system_home }}{{ item.1.instance_name }}/webapps/ROOT/errorpages/{{ item.0 }}.jsp"
+  with_nested:
     - "{{ tomcat_custom_error_pages }}"
+    - "{{ tomcat_instance}}"
   when: tomcat_offline_install == False
 
 - name: error pages | copy custom erropages for Tomcat
   copy:
-    src: "{{ item }}.jsp"
-    dest: "{{ tomcat_catalina_base }}/webapps/ROOT/errorpages/{{ item }}.jsp"
-  with_items:
+    src: "{{ item.0 }}.jsp"
+    dest: "{{ tomcat_system_home }}{{ item.1.instance_name }}/webapps/ROOT/errorpages/{{ item.0 }}.jsp"
+  with_nested:
     - "{{ tomcat_custom_error_pages }}"
+    - "{{ tomcat_instance}}"
   when: tomcat_offline_install != False

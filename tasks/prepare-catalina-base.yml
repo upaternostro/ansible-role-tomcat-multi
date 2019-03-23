@@ -11,46 +11,51 @@
 
 - name: create CATALINA_BASE directory
   file:
-    path: "{{ tomcat_catalina_base }}"
+    path: "{{ tomcat_system_home }}{{ item.instance_name }}"
     state: directory
     owner: "{{ tomcat_system_user }}"
     group: "{{ tomcat_system_group }}"
+  with_items: {{ tomcat_instance}}
 
 - name: create heapdumps directory
   file:
-    path: "{{ tomcat_catalina_base }}/heapdumps"
+    path: "{{ tomcat_system_home }}{{ item.instance_name }}/heapdumps"
     state: directory
     owner: "{{ tomcat_root_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rwx,o="
+  with_items: {{ tomcat_instance}}
 
 - name: create CATALINA_BASE/bin directory
   file:
-    path: "{{ tomcat_catalina_base }}/bin"
+    path: "{{ tomcat_system_home }}{{ item.instance_name }}/bin"
     state: directory
     owner: "{{ tomcat_root_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rx,o="
+  with_items: {{ tomcat_instance}}
 
 - name: create CATALINA_BASE/conf directory
   file:
-    path: "{{ tomcat_catalina_base }}/conf"
+    path: "{{ tomcat_system_home }}{{ item.instance_name }}/conf"
     state: directory
     owner: "{{ tomcat_root_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rx,o="
+  with_items: {{ tomcat_instance}}
 
 - name: create CATALINA_BASE/conf/Catalina directory
   file:
-    path: "{{ tomcat_catalina_base }}/conf/Catalina"
+    path: "{{ tomcat_system_home }}{{ item.instance_name }}/conf/Catalina"
     state: directory
     owner: "{{ tomcat_system_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rx,o="
+  with_items: {{ tomcat_instance}}
 
 - name: create CATALINA_BASE/logs directory
   file:
-    path: "{{ tomcat_catalina_base }}/logs/{{ item }}"
+    path: "{{ tomcat_system_home }}{{ item.instance_name }}/logs/{{ item }}"
     state: directory
     owner: "{{ tomcat_system_user }}"
     group: "{{ tomcat_system_group }}"
@@ -59,83 +64,90 @@
     - catalina
     - gc
     - access
+  with_items: {{ tomcat_instance}}
 
 - name: create CATALINA_BASE/lib directory
   file:
-    path: "{{ tomcat_catalina_base }}/lib"
+    path: "{{ tomcat_system_home }}{{ item.instance_name }}/lib"
     state: directory
     owner: "{{ tomcat_root_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rx,o="
+  with_items: {{ tomcat_instance}}
 
 - name: create CATALINA_BASE/lib/ext directory
   file:
-    path: "{{ tomcat_catalina_base }}/lib/ext"
+    path: "{{ tomcat_system_home }}{{ item.instance_name }}/lib/ext"
     state: directory
     owner: "{{ tomcat_root_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rx,o="
+  with_items: {{ tomcat_instance}}
 
 - name: create CATALINA_BASE/shared/lib directory
   file:
-    path: "{{ tomcat_catalina_base }}/shared/lib"
+    path: "{{ tomcat_system_home }}{{ item.instance_name }}/shared/lib"
     state: directory
     owner: "{{ tomcat_root_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rx,o="
+  with_items: {{ tomcat_instance}}
 
 - name: create CATALINA_BASE/temp directory
   file:
-    path: "{{ tomcat_catalina_base }}/temp"
+    path: "{{ tomcat_system_home }}{{ item.instance_name }}/temp"
     state: directory
     owner: "{{ tomcat_system_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rwx,o="
+  with_items: {{ tomcat_instance}}
 
 - name: create CATALINA_BASE/webapps directory
   file:
-    path: "{{ tomcat_catalina_base }}/webapps"
+    path: "{{ tomcat_system_home }}{{ item.instance_name }}/webapps"
     state: directory
     owner: "{{ tomcat_root_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rwx,o="
+  with_items: {{ tomcat_instance}}
 
 - name: create CATALINA_BASE/work directory
   file:
-    path: "{{ tomcat_catalina_base }}/work"
+    path: "{{ tomcat_system_home }}{{ item.instance_name }}/work"
     state: directory
     owner: "{{ tomcat_system_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rwx,o="
+  with_items: {{ tomcat_instance}}
 
 - name: symlink catalina script
   file:
     src: "{{ tomcat_catalina_home }}/bin/catalina.sh"
-    dest: "{{ tomcat_catalina_base }}/bin/catalina.sh"
+    dest: "{{ tomcat_system_home }}{{ item.instance_name }}/bin/catalina.sh"
     state: link
     force: true
+  with_items: {{ tomcat_instance}}
 
 - name: symlink startup script
   file:
     src: "{{ tomcat_catalina_home }}/bin/startup.sh"
-    dest: "{{ tomcat_catalina_base }}/bin/startup.sh"
+    dest: "{{ tomcat_system_home }}{{ item.instance_name }}/bin/startup.sh"
     state: link
     force: true
+  with_items: {{ tomcat_instance}}
 
 - name: symlink shutdown script
   file:
     src: "{{ tomcat_catalina_home }}/bin/shutdown.sh"
-    dest: "{{ tomcat_catalina_base }}/bin/shutdown.sh"
+    dest: "{{ tomcat_system_home }}{{ item.instance_name }}/bin/shutdown.sh"
     state: link
     force: true
+  with_items: {{ tomcat_instance}}
 
 - name: 'generate configuartion from template, using the default recommended settings'
   template:
-    src: '{{ item }}.j2'
-    dest: '{{ tomcat_catalina_base }}/conf/{{ item }}'
-  with_items:
-    - 'context.xml'
-    - 'server.xml'
-    - 'web.xml'
-    - 'logging.properties'
-    - 'tomcat-users.xml'
+    src: '{{ item.0 }}.j2'
+    dest: '{{ tomcat_system_home }}{{ item.1.instance_name }}/conf/{{ item.0 }}'
+  with_nested:
+    - [ 'context.xml', 'server.xml', 'web.xml', 'logging.properties', 'tomcat-users.xml' ]
+    - {{ tomcat_instance}}
