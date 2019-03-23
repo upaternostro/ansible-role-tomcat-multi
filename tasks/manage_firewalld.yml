@@ -23,7 +23,7 @@
     zone: '{{ item.0.http_zone }}'
   with_nested:
     - '{{ tomcat_http_source }}'
-    - "{{ tomcat_instance }}"
+    - '{{ tomcat_instance }}'
 
 - name: 'configure firewalld for ajb port'
   firewalld:
@@ -34,7 +34,7 @@
     zone: '{{ item.0.ajb_zone }}'
   with_nested:
     - '{{ tomcat_ajb_source }}'
-    - "{{ tomcat_instance }}"
+    - '{{ tomcat_instance }}'
 
 - name: 'configure firewalld for https port'
   firewalld:
@@ -45,7 +45,7 @@
     zone: '{{ item.0.https_zone }}'
   with_nested:
     - '{{ tomcat_https_source }}'
-    - "{{ tomcat_instance }}"
+    - '{{ tomcat_instance }}'
   with_items:
 
 - name: 'configure firewalld for jmx port {{ tomcat_jmx_port }}'
