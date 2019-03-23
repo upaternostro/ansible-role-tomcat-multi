@@ -49,7 +49,7 @@
     -->
     <Connector port="{{ item.1.http_port }}" protocol="HTTP/1.1"
                connectionTimeout="20000"
-               redirectPort="{{ tomcat_https_port }}"
+               redirectPort="{{ item.1.https_port }}"
                Server=" "
                URIEncoding="{{ tomcat_page_encoding }}"
                Secure="{% if tomcat_session_secure == True %}true{% else %}false{% endif %}" />
@@ -58,7 +58,7 @@
     <Connector executor="tomcatThreadPool"
                port="{{ item.1.http_port }}" protocol="HTTP/1.1"
                connectionTimeout="20000"
-               redirectPort="{{ tomcat_https_port }}"
+               redirectPort="{{ item.1.http_port }}"
                Server=" "
                URIEncoding="{{ tomcat_page_encoding }}"
                Secure="{% if tomcat_session_secure == True %}true{% else %}false{% endif %}" />
