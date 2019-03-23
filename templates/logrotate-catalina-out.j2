@@ -1,5 +1,6 @@
 # {{ ansible_managed }}
-{{ tomcat_catalina_base }}/logs/catalina/catalina.out {
+{% for instance in tomcat_instance %}
+{{ tomcat_system_home }}{{ instance.instance_name }}/logs/catalina/catalina.out {
   su {{ tomcat_system_user }} {{ tomcat_system_group }}
   daily
   rotate 730
@@ -11,3 +12,5 @@
   compressoptions "-9e"
   compressext .xz
 }
+
+{% endfor %}
