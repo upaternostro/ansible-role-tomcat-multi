@@ -55,16 +55,14 @@
 
 - name: create CATALINA_BASE/logs directory
   file:
-    path: "{{ tomcat_system_home }}{{ item.instance_name }}/logs/{{ item }}"
+    path: "{{ tomcat_system_home }}{{ item.1.instance_name }}/logs/{{ item.0 }}"
     state: directory
     owner: "{{ tomcat_system_user }}"
     group: "{{ tomcat_system_group }}"
     mode: "u=rwx,g=rwx,o="
-  with_items:
-    - catalina
-    - gc
-    - access
-  with_items: {{ tomcat_instance}}
+  with_nested:
+    - [ 'catalina', 'gc', 'access' ]
+    - {{ tomcat_instance}}
 
 - name: create CATALINA_BASE/lib directory
   file:
