@@ -14,35 +14,39 @@
     state: started
     enabled: true
 
-- name: 'configure firewalld for http port {{ tomcat_http_port }}'
+- name: 'configure firewalld for http port'
   firewalld:
-    port: '{{ tomcat_http_port }}/tcp'
+    port: '{{ item.1.http_port }}/tcp'
     permanent: true
     immediate: true
     state: enabled
-    zone: '{{ tomcat_http_zone }}'
-  with_items:
+    zone: '{{ item.0.http_zone }}'
+  with_nested:
     - '{{ tomcat_http_source }}'
+    - "{{ tomcat_instance }}"
 
-- name: 'configure firewalld for ajb port {{ tomcat_ajb_port }}'
+- name: 'configure firewalld for ajb port'
   firewalld:
-    port: '{{ tomcat_ajb_port }}/tcp'
+    port: '{{ item.1.ajb_port }}/tcp'
     permanent: true
     immediate: true
     state: enabled
-    zone: '{{ tomcat_ajb_zone }}'
-  with_items:
+    zone: '{{ item.0.ajb_zone }}'
+  with_nested:
     - '{{ tomcat_ajb_source }}'
+    - "{{ tomcat_instance }}"
 
-- name: 'configure firewalld for https port {{ tomcat_https_port }}'
+- name: 'configure firewalld for https port'
   firewalld:
-    port: '{{ tomcat_https_port }}/tcp'
+    port: '{{ item.1.https_port }}/tcp'
     permanent: true
     immediate: true
     state: enabled
-    zone: '{{ tomcat_https_zone }}'
-  with_items:
+    zone: '{{ item.0.https_zone }}'
+  with_nested:
     - '{{ tomcat_https_source }}'
+    - "{{ tomcat_instance }}"
+  with_items:
 
 - name: 'configure firewalld for jmx port {{ tomcat_jmx_port }}'
   firewalld:
