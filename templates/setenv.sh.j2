@@ -12,7 +12,7 @@ JAVA_MIN_PERMSIZE={{ tomcat_java_permsize_min }}
 JAVA_MAX_PERMSIZE={{ tomcat_java_permsize_max }}
 {% endif %}
 
-CATALINA_OUT="{{ tomcat_catalina_out }}"
+CATALINA_OUT="${CATALINA_BASE}/logs/catalina/catalina.out"
 
 {% if tomcat_catalina_parameters != '' %}
 CATALINA_OPTS="${CATALINA_OPTS} {{ tomcat_catalina_parameters }}"

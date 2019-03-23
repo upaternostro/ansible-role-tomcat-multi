@@ -35,7 +35,6 @@ tomcat_instance:
   - instance_name: 'tomcat_app_sys2'
 
 tomcat_catalina_home: '{{ tomcat_system_home }}/tomcat{{ tomcat_majorversion }}'
-tomcat_catalina_out: '{{ tomcat_catalina_base }}/logs/catalina/catalina.out'
 
 tomcat_dir_mode: '0770'
 tomcat_file_mode: '0660'
