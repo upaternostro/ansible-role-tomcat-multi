@@ -39,7 +39,8 @@ tomcat_instance:
     ajb_port: 8009
     ajb_zone: "trusted"
     ajb_source:  # Tweak this according yout network
-      - "0.0.0.0/0"    https_port: 8443
+      - "0.0.0.0/0"
+    https_port: 8443
     https_zone: "internal"
     https_source:  # Tweak this according yout network
       - "0.0.0.0/0"
