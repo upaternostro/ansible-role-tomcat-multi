@@ -20,11 +20,47 @@
     permanent: true
     immediate: true
     state: enabled
-    zone: '{{ item.0.http_zone }}'
     source: '{{ item.1 }}'
   with_subelements:
     - '{{ tomcat_instance }}'
     - http_source
+  when '{{ item.1 }}'
+
+- name: 'configure firewalld for ajb port'
+  firewalld:
+    port: '{{ item.0.ajb_port }}/tcp'
+    permanent: true
+    immediate: true
+    state: enabled
+    source: '{{ item.1 }}'
+  with_subelements:
+    - '{{ tomcat_instance }}'
+    - ajb_source
+  when '{{ item.1 }}'
+
+- name: 'configure firewalld for https port'
+  firewalld:
+    port: '{{ item.0.https_port }}/tcp'
+    permanent: true
+    immediate: true
+    state: enabled
+    source: '{{ item.1 }}'
+  with_subelements:
+    - '{{ tomcat_instance }}'
+    - https_source
+  when '{{ item.1 }}'
+
+- name: 'configure firewalld for http port'
+  firewalld:
+    port: '{{ item.0.http_port }}/tcp'
+    permanent: true
+    immediate: true
+    state: enabled
+    zone: '{{ item.0.http_zone }}'
+  with_subelements:
+    - '{{ tomcat_instance }}'
+    - http_source
+  when: '{{ item.0.http_zone }}'
 
 - name: 'configure firewalld for ajb port'
   firewalld:
@@ -33,10 +69,10 @@
     immediate: true
     state: enabled
     zone: '{{ item.0.ajb_zone }}'
-    source: '{{ item.1 }}'
   with_subelements:
     - '{{ tomcat_instance }}'
     - ajb_source
+  when: '{{ item.0.http_zone }}'
 
 - name: 'configure firewalld for https port'
   firewalld:
@@ -45,10 +81,10 @@
     immediate: true
     state: enabled
     zone: '{{ item.0.https_zone }}'
-    source: '{{ item.1 }}'
   with_subelements:
     - '{{ tomcat_instance }}'
     - https_source
+  when: '{{ item.0.http_zone }}'
 
 - name: 'configure firewalld for jmx port {{ tomcat_jmx_port }}'
   firewalld:
