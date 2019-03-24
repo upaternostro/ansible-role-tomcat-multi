@@ -24,7 +24,7 @@
   with_subelements:
     - '{{ tomcat_instance }}'
     - http_source
-  when '{{ item.1 }}'
+  when: '{{ item.1 }}'
 
 - name: 'configure firewalld for ajb port'
   firewalld:
@@ -36,7 +36,7 @@
   with_subelements:
     - '{{ tomcat_instance }}'
     - ajb_source
-  when '{{ item.1 }}'
+  when: '{{ item.1 }}'
 
 - name: 'configure firewalld for https port'
   firewalld:
@@ -48,7 +48,7 @@
   with_subelements:
     - '{{ tomcat_instance }}'
     - https_source
-  when '{{ item.1 }}'
+  when: '{{ item.1 }}'
 
 - name: 'configure firewalld for http port'
   firewalld:
