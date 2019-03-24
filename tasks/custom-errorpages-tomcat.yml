@@ -19,7 +19,7 @@
   with_nested:
     - "{{ tomcat_custom_error_pages }}"
     - "{{ tomcat_instance }}"
-  when: tomcat_offline_install == False
+  when: not tomcat_offline_install
 
 - name: error pages | copy custom erropages for Tomcat
   copy:
@@ -28,4 +28,4 @@
   with_nested:
     - "{{ tomcat_custom_error_pages }}"
     - "{{ tomcat_instance }}"
-  when: tomcat_offline_install != False
+  when: tomcat_offline_install
