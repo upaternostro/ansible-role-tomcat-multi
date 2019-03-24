@@ -78,4 +78,4 @@
     dest: '{{ tomcat_download_dir }}/{{ tomcat_download_file }}'
     validate_certs: '{{ tomcat_download_validate_certs }}'
     mode: 644
-  when: (not tomcat_is_download_file.stat.existsor tomcat_installer_force_overwrite) and tomcat_installer_force_download and not tomcat_installer_local
+  when: (not tomcat_is_download_file.stat.exists or tomcat_installer_force_overwrite) and tomcat_installer_force_download and not tomcat_installer_local
