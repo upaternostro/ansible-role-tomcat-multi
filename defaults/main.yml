@@ -34,24 +34,28 @@ tomcat_instance:
   - instance_name: 'tomcat_app_sys1'
     http_port: 8080
     http_zone: "internal"
+    http_source:  # Tweak this according yout network
+      - "0.0.0.0/0"
     ajb_port: 8009
     ajb_zone: "trusted"
-    https_port: 8443
+    ajb_source:  # Tweak this according yout network
+      - "0.0.0.0/0"    https_port: 8443
     https_zone: "internal"
+    https_source:  # Tweak this according yout network
+      - "0.0.0.0/0"
   - instance_name: 'tomcat_app_sys2'
     http_port: 8081
     http_zone: "internal"
+    http_source:  # Tweak this according yout network
+      - "0.0.0.0/0"
     ajb_port: 8010
     ajb_zone: "trusted"
+    ajb_source:  # Tweak this according yout network
+      - "0.0.0.0/0"
     https_port: 8444
     https_zone: "internal"
-
-tomcat_http_source:  # Tweak this according yout network
-  - "0.0.0.0/0"
-tomcat_ajb_source:  # Tweak this according yout network
-  - "0.0.0.0/0"
-tomcat_https_source:  # Tweak this according yout network
-  - "0.0.0.0/0"
+    https_source:  # Tweak this according yout network
+      - "0.0.0.0/0"
 
 tomcat_catalina_home: '{{ tomcat_system_home }}/tomcat{{ tomcat_majorversion }}'
 
