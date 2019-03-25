@@ -87,7 +87,7 @@
 
 - name: 'configure firewalld for ajb port'
   firewalld:
-    port: '{{ item.0.ajb_port }}/tcp'
+    port: '{{ item.ajb_port }}/tcp'
     permanent: true
     immediate: true
     state: enabled
