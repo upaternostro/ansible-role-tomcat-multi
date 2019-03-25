@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- {{ ansible_managed }} -->
-<Server port="{{ tomcat_shutdown_port }}" shutdown="{{ tomcat_shutdown_command }}">
+<Server port="{{ item.1.shutdown_port }}" shutdown="{{ tomcat_shutdown_command }}">
   <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
   <!-- Security listener. Documentation at /docs/config/listeners.html
   <Listener className="org.apache.catalina.security.SecurityListener" />
