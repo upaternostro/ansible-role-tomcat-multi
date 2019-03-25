@@ -95,6 +95,14 @@ Tomcat Cataline home folder.
 
 Tomcat Catalina base folder.
 
+    tomcat_manage_firewalld: true
+
+Role manages the firewalld settings of required ports.
+
+    tomcat_manage_firewalld_use_zone: true
+
+Tomcat firewalld uses zones (default) or use source addresses.
+
 ## Dependencies
 
 None.

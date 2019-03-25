@@ -12,6 +12,7 @@ tomcat_installer_local: false  # The true means try to copy from Ansible's local
 tomcat_download_validate_certs: false
 
 tomcat_manage_firewalld: true
+tomcat_manage_firewalld_use_zone: true
 
 # Downloadable Tomcat version
 tomcat_majorversion: 8
@@ -35,28 +36,28 @@ tomcat_instance:
     http_port: 8080
     http_zone: "internal"
     http_source:  # Tweak this according yout network
-    # - "0.0.0.0/0"
+      - "0.0.0.0/0"
     ajb_port: 8009
     ajb_zone: "trusted"
     ajb_source:  # Tweak this according yout network
-    # - "0.0.0.0/0"
+      - "0.0.0.0/0"
     https_port: 8443
     https_zone: "internal"
     https_source:  # Tweak this according yout network
-    # - "0.0.0.0/0"
+      - "0.0.0.0/0"
   - instance_name: 'tomcat_app_sys2'
     http_port: 8081
     http_zone: "internal"
     http_source:  # Tweak this according yout network
-    # - "0.0.0.0/0"
+      - "0.0.0.0/0"
     ajb_port: 8010
     ajb_zone: "trusted"
     ajb_source:  # Tweak this according yout network
-    # - "0.0.0.0/0"
+      - "0.0.0.0/0"
     https_port: 8444
     https_zone: "internal"
     https_source:  # Tweak this according yout network
-    # - "0.0.0.0/0"
+      - "0.0.0.0/0"
 
 tomcat_catalina_home: '{{ tomcat_system_home }}/tomcat{{ tomcat_majorversion }}'
 
