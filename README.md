@@ -23,7 +23,7 @@ None.
 
 ## Installation
 
-    ansible-galaxy install kami911.tomcat
+    ansible-galaxy install kami911.tomcat-multi
 
 ## Role Variables
 
@@ -75,25 +75,64 @@ Forcing Tomcat to use secure JSESSIONID cookie.
 
 Tomcat manage java installation an install OpenJDK or not.
 
-    tomcat_system_name: "tomcat_app_sys"
+    tomcat_system_name: "tomcat_app"
 
-Optional: Use this folder name for this tomcat instance.
+Use this folder name for this tomcat main folder.
 
     tomcat_system_home: "{{ tomcat_base_folder }}/{{ tomcat_system_user }}"
 
-Folder of Tomcat binaries.
-
-    # tomcat_system_home: "{{ tomcat_base_folder }}/{{ tomcat_system_name }}" # This is an optional setting to use tomcat_system_name for this system.
-
 Folder of Tomcat binaries using tomcat_system_home variable.
 
-    tomcat_catalina_home: "{{ tomcat_system_home }}/tomcat"
+    tomcat_catalina_home: '{{ tomcat_system_home }}/tomcat{{ tomcat_majorversion }}'
 
 Tomcat Cataline home folder.
 
-    tomcat_catalina_base: "{{ tomcat_catalina_home }}"
+    tomcat_instance:
 
-Tomcat Catalina base folder.
+List of dictioneries where the tomcat instances are configured.
+
+      - instance_name: 'tomcat_app_sys1'
+
+Name of first instance. Also this variable used as name of instance folder name, start/stop script and process identifier.
+
+        http_port: 8080
+
+Port number of http port of Tomcat instance sevice. Please define it carefuly, it should be not the same as other ports.
+
+        http_zone: "internal"
+
+The firewalld zone name where connection are accepted for http connections. This variable is used when firewalld supported system is used (for exmple: CentOS 7) and tomcat_manage_firewalld_use_zone variable is true.
+
+        http_source:  # Tweak this according yout network
+          - "0.0.0.0/0"
+
+List of source ports where connection are accepted for http connections. This time only firewalld is supported. The default values are 0.0.0.0/0 means all connection is accepted. This should narrowed.
+
+        ajb_port: 8009
+
+Port number of ajb port of Tomcat instance sevice. Please define it carefuly, it should be not the same as other ports.
+
+    ajb_zone: "trusted"
+
+The firewalld zone name where connection are accepted for ajb connections. This variable is used when firewalld supported system is used (for exmple: CentOS 7) and tomcat_manage_firewalld_use_zone variable is true.
+
+    ajb_source:  # Tweak this according yout network
+      - "0.0.0.0/0"
+
+List of source ports where connection are accepted for ajb connections. This time only firewalld is supported. The default values are 0.0.0.0/0 means all connection is accepted. This should narrowed.
+
+    https_port: 8443
+
+Port number of https port of Tomcat instance sevice. Please define it carefuly, it should be not the same as other ports.
+
+    https_zone: "internal"
+
+The firewalld zone name where connection are accepted for https connections. This variable is used when firewalld supported system is used (for exmple: CentOS 7) and tomcat_manage_firewalld_use_zone variable is true.
+
+    https_source:  # Tweak this according yout network
+      - "0.0.0.0/0"
+
+List of source ports where connection are accepted for https connections. This time only firewalld is supported. The default values are 0.0.0.0/0 means all connection is accepted. This should narrowed.
 
     tomcat_manage_firewalld: true
 
@@ -111,7 +150,7 @@ None.
 
     - hosts: all
       roles:
-        - tomcat
+        - tomcat-multi
 
 ## Licensing
 
@@ -121,7 +160,7 @@ the MIT / BSD, you will find a copy of this license in the
 
 ## Author Information
 
-This role was created in 2016-2017 by Kálmán Szalai - KAMI
+This role was created in 2016-2019 by Kálmán Szalai - KAMI
 
 ## Support
 
