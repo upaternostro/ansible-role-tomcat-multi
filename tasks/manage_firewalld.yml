@@ -24,7 +24,7 @@
   with_subelements:
     - '{{ tomcat_instance }}'
     - http_source
-  when: not 'tomcat_manage_firewalld_use_zone'
+  when: not tomcat_manage_firewalld_use_zone
 
 - name: 'configure firewalld for ajb port'
   firewalld:
@@ -36,7 +36,7 @@
   with_subelements:
     - '{{ tomcat_instance }}'
     - ajb_source
-  when: not 'tomcat_manage_firewalld_use_zone'
+  when: not tomcat_manage_firewalld_use_zone
 
 - name: 'configure firewalld for https port'
   firewalld:
@@ -48,7 +48,7 @@
   with_subelements:
     - '{{ tomcat_instance }}'
     - https_source
-  when: not 'tomcat_manage_firewalld_use_zone'
+  when: not tomcat_manage_firewalld_use_zone
 
 - name: 'configure firewalld for http port'
   firewalld:
@@ -60,7 +60,7 @@
   with_subelements:
     - '{{ tomcat_instance }}'
     - http_source
-  when: 'tomcat_manage_firewalld_use_zone'
+  when: tomcat_manage_firewalld_use_zone
 
 - name: 'configure firewalld for ajb port'
   firewalld:
@@ -72,7 +72,7 @@
   with_subelements:
     - '{{ tomcat_instance }}'
     - ajb_source
-  when: 'tomcat_manage_firewalld_use_zone'
+  when: tomcat_manage_firewalld_use_zone
 
 - name: 'configure firewalld for https port'
   firewalld:
@@ -84,7 +84,7 @@
   with_subelements:
     - '{{ tomcat_instance }}'
     - https_source
-  when: 'tomcat_manage_firewalld_use_zone'
+  when: tomcat_manage_firewalld_use_zone
 
 - name: 'configure firewalld for jmx port {{ tomcat_jmx_port }}'
   firewalld:
