@@ -1,7 +1,7 @@
 #!/bin/bash
 # {{ ansible_managed }}
 #
-# /etc/init.d/{{ tomcat_process_name }} -- startup script for the Tomcat servlet engine
+# /etc/init.d/{{ tomcat_system_name }}_{{ item.instance_name }} -- startup script for the Tomcat servlet engine
 # description: Apache Tomcat init script
 # processname: tomcat
 # chkconfig: 234 20 80
@@ -24,8 +24,8 @@
 # Initially forked from: gist.github.com/valotas/1000094
 # Source: gist.github.com/miglen/5590986
 
-NAME="{{ item.instance_name }}"
-DESC="{{ item.instance_name }} servlet engine"
+NAME="{{ tomcat_system_name }}_{{ item.instance_name }}"
+DESC="{{ tomcat_system_name }}_{{ item.instance_name }} servlet engine"
 DEFAULT="/etc/default/$NAME"
 JVM_TMP="/tmp/tomcat-$NAME-tmp"
 

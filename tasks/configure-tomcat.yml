@@ -31,7 +31,7 @@
 - name: generate Tomcat init script
   template:
     src: tomcat.j2
-    dest: "/etc/init.d/{{ item.instance_name }}"
+    dest: "/etc/init.d/{{ tomcat_system_name }}_{{ item.instance_name }}"
     owner: "{{ tomcat_system_user }}"
     group: "{{ tomcat_system_group }}"
     mode: 0750
