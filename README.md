@@ -134,6 +134,32 @@ The firewalld zone name where connection are accepted for https connections. Thi
 
 List of source ports where connection are accepted for https connections. This time only firewalld is supported. The default values are 0.0.0.0/0 means all connection is accepted. This should narrowed.
 
+jmx_port: 48080
+
+Port number of JMX manager port of Tomcat instance sevice. Please define it carefuly, it should be not the same as other ports.
+
+jmx_zone: "internal"
+
+The firewalld zone name where connection are accepted for JMX manager connections. This variable is used when firewalld supported system is used (for exmple: CentOS 7) and tomcat_manage_firewalld_use_zone variable is true.
+
+jmx_source:  # Tweak this according yout network
+  - "0.0.0.0/0"
+
+List of source ports where connection are accepted for JMX manager connections. This time only firewalld is supported. The default values are 0.0.0.0/0 means all connection is accepted. This should narrowed.
+
+shutdown_port: 49080
+
+Port number of JMX shutdown port of Tomcat instance sevice. Please define it carefuly, it should be not the same as other ports.
+
+shutdown_zone: "internal"
+
+The firewalld zone name where connection are accepted for JMX shutdown connections. This variable is used when firewalld supported system is used (for exmple: CentOS 7) and tomcat_manage_firewalld_use_zone variable is true.
+
+shutdown_source:  # Tweak this according yout network
+  - ""127.0.0.1/32"
+
+List of source ports where connection are accepted for JMX shutdown connections. This time only firewalld is supported. The default values are "127.0.0.1/32 means only local connection is accepted. This should narrowed.
+
     tomcat_manage_firewalld: true
 
 Role manages the firewalld settings of required ports.
