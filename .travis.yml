@@ -18,9 +18,9 @@ install:
   - pip install docker
   - pip install molecule==2.17.0
   - pip install docker-py
-  - travis_wait 30 mvn install
+
 script:
-  - molecule test
+  - travis_wait 30 molecule test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
