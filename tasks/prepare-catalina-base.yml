@@ -53,13 +53,23 @@
     mode: "u=rwx,g=rx,o="
   with_items: "{{ tomcat_instance }}"
 
-- name: create CATALINA_BASE/logs directory
+- name: create CATALINA_BASE/logs directories
+  file:
+    path: "{{ tomcat_system_home }}{{ item.1.instance_name }}/logs/"
+    state: directory
+    owner: "{{ tomcat_system_user }}"
+    group: "{{ tomcat_system_group }}"
+    mode: "{{ tomcat_catalina_logs_directory_mode }}"
+  with_items:
+    - "{{ tomcat_instance }}"
+
+- name: create CATALINA_BASE/logs subdirectories
   file:
     path: "{{ tomcat_system_home }}{{ item.1.instance_name }}/logs/{{ item.0 }}"
     state: directory
     owner: "{{ tomcat_system_user }}"
     group: "{{ tomcat_system_group }}"
-    mode: "u=rwx,g=rwx,o="
+    mode: "{{ tomcat_catalina_logs_directory_mode }}"
   with_nested:
     - [ 'catalina', 'gc', 'access' ]
     - "{{ tomcat_instance }}"

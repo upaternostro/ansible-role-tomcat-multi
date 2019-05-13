@@ -81,6 +81,8 @@ tomcat_dir_mode: '0770'
 tomcat_file_mode: '0660'
 tomcat_create_symlink: true
 
+tomcat_catalina_logs_directory_mode: "u=rwx,g=rwx,o="
+
 tomcat_force_update: false
 
 # Tomcat will use this use and group
