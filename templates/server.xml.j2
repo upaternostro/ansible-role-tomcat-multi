@@ -48,11 +48,15 @@
          Define a non-SSL/TLS HTTP/1.1 Connector on port {{ item.1.http_port }}
     -->
     <Connector port="{{ item.1.http_port }}" protocol="HTTP/1.1"
-               connectionTimeout="20000"
+               connectionTimeout="{{ item.1.tomcat_http_connection_timeout }}"
                redirectPort="{{ item.1.https_port }}"
                Server=" "
                URIEncoding="{{ tomcat_page_encoding }}"
-               Secure="{% if tomcat_session_secure == True %}true{% else %}false{% endif %}" />
+               Secure="{% if tomcat_session_secure == True %}true{% else %}false{% endif %}"
+               compressableMimeType="{{ item.1.tomcat_http_compression_mime_types }}"
+               compression="{% if item.1.tomcat_http_compression == True %}on{% else %}off{% endif %}"
+               compressionMinSize="{{ item.1.tomcat_http_compression_min_size }}"
+               noCompressionUserAgents="{{ item.1.tomcat_http_compression_nocompress_user_agent }}"/>^M
     <!-- A "Connector" using the shared thread pool-->
     <!--
     <Connector executor="tomcatThreadPool"

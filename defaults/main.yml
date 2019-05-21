@@ -37,6 +37,12 @@ tomcat_instance:
     http_zone: "internal"
     http_source:  # Tweak this according yout network
       - "0.0.0.0/0"
+    tomcat_http_connection_timeout: 20000
+    tomcat_http_compression_mime_types: "text/html,text/xml,text/css,text/javascript,application/x-javascript,application/javascript"
+    tomcat_http_compression: true
+    tomcat_http_compression_min_size: 256
+    tomcat_http_compression_nocompress_user_agent: ""
+
     ajb_port: 8009
     ajb_zone: "trusted"
     ajb_source:  # Tweak this according yout network
@@ -58,6 +64,11 @@ tomcat_instance:
     http_zone: "internal"
     http_source:  # Tweak this according yout network
       - "0.0.0.0/0"
+    tomcat_http_connection_timeout: 20000
+    tomcat_http_compression_mime_types: "text/html,text/xml,text/css,text/javascript,application/x-javascript,application/javascript"
+    tomcat_http_compression: true
+    tomcat_http_compression_min_size: 256
+    tomcat_http_compression_nocompress_user_agent: ""
     ajb_port: 8010
     ajb_zone: "trusted"
     ajb_source:  # Tweak this according yout network
