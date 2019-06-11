@@ -54,22 +54,6 @@ platforms:
       - centos7
       - firewalld_source
 
-  - name: tomcat-ubuntu-14-04-10-jdk
-    image: ubuntu:14.04
-    image_version: latest
-    privileged: true
-    groups:
-      - jdk
-      - ubuntu_14
-
-  - name: tomcat-ubuntu14-04-10-server-jre
-    image: ubuntu:14.04
-    image_version: latest
-    privileged: true
-    groups:
-      - server-jre
-      - ubuntu_14
-
   - name: tomcat-ubuntu-16-04-10-jdk
     image: ubuntu:16.04
     image_version: latest
@@ -113,8 +97,6 @@ provisioner:
         java_type: 'jdk'
       server-jre:
         java_type: 'serverjre'
-      ubuntu14:
-        tomcat_manage_firewalld: false
       ubuntu16:
         tomcat_manage_firewalld: false
       ubuntu18:
