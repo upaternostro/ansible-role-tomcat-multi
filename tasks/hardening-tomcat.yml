@@ -4,7 +4,9 @@
 #
 
 - name: copy recommended default applications
-  command: "cp -r --preserve=mode,ownership,timestamps {{ tomcat_catalina_home }}/webapps/{{ item.0 }} {{ tomcat_system_home }}{{ item.1.instance_name }}/webapps/{{ item.0 }}"
+  command: >
+    cp -r --preserve=mode,ownership,timestamps
+    {{ tomcat_catalina_home }}/webapps/{{ item.0 }} {{ tomcat_system_home }}{{ item.1.instance_name }}/webapps/{{ item.0 }}
   args:
     creates: "{{ tomcat_system_home }}{{ item.1.instance_name }}/webapps/{{ item.0 }}/"
   with_nested:
