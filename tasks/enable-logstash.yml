@@ -13,7 +13,7 @@
     owner: "{{ tomcat_root_user }}"
     group: "{{ tomcat_system_group }}"
     mode: 0750
-  when: (not logstash_installed.stat.exists or tomcat_force_update)
+  when: not logstash_installed.stat.exists or tomcat_force_update
 
 - name: download Logstash logging bundle
   get_url:
