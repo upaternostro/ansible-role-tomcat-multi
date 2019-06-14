@@ -59,6 +59,7 @@ tomcat_instance:
     shutdown_zone: "trusted"
     shutdown_source:  # Tweak this according yout network
       - "127.0.0.1/32"
+    tomcat_juli_logging_level: "FINE"
   - instance_name: 'tomcat_app_sys2'
     http_port: 8081
     http_zone: "internal"
@@ -85,6 +86,7 @@ tomcat_instance:
     shutdown_zone: "trusted"
     shutdown_source:  # Tweak this according yout network
       - "127.0.0.1/32"
+    tomcat_juli_logging_level: "FINE"
 
 tomcat_catalina_home: '{{ tomcat_system_home }}/tomcat{{ tomcat_majorversion }}'
 
