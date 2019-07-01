@@ -160,6 +160,10 @@ Name of first instance. Also this variable used as name of instance folder name,
 
 Port number of http port of Tomcat instance sevice. Please define it carefuly, it should be not the same as other ports.
 
+        http_stp: false
+
+Tomcat "Connector" using the shared thread pool for http connections.
+
         http_zone: "internal"
 
 The firewalld zone name where connection are accepted for http connections. This variable is used when firewalld supported system is used (for exmple: CentOS 7) and tomcat_manage_firewalld_use_zone variable is true.
@@ -172,6 +176,10 @@ List of source ports where connection are accepted for http connections. This ti
         ajp_port: 8009
 
 Port number of ajp port of Tomcat instance sevice. Please define it carefuly, it should be not the same as other ports.
+
+        ajp_stp: false
+
+Tomcat "Connector" using the shared thread pool for ajp connections.
 
         ajp_zone: "trusted"
 
