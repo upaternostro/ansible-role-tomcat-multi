@@ -169,18 +169,18 @@ The firewalld zone name where connection are accepted for http connections. This
 
 List of source ports where connection are accepted for http connections. This time only firewalld is supported. The default values are 0.0.0.0/0 means all connection is accepted. This should narrowed.
 
-        ajb_port: 8009
+        ajp_port: 8009
 
-Port number of ajb port of Tomcat instance sevice. Please define it carefuly, it should be not the same as other ports.
+Port number of ajp port of Tomcat instance sevice. Please define it carefuly, it should be not the same as other ports.
 
-        ajb_zone: "trusted"
+        ajp_zone: "trusted"
 
-The firewalld zone name where connection are accepted for ajb connections. This variable is used when firewalld supported system is used (for exmple: CentOS 7) and tomcat_manage_firewalld_use_zone variable is true.
+The firewalld zone name where connection are accepted for ajp connections. This variable is used when firewalld supported system is used (for exmple: CentOS 7) and tomcat_manage_firewalld_use_zone variable is true.
 
-        ajb_source:  # Tweak this according yout network
+        ajp_source:  # Tweak this according yout network
           - "0.0.0.0/0"
 
-List of source ports where connection are accepted for ajb connections. This time only firewalld is supported. The default values are 0.0.0.0/0 means all connection is accepted. This should narrowed.
+List of source ports where connection are accepted for ajp connections. This time only firewalld is supported. The default values are 0.0.0.0/0 means all connection is accepted. This should narrowed.
 
         https_port: 8443
 
