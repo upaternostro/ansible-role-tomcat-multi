@@ -40,7 +40,7 @@
 - name: generate Tomcat systemd script
   template:
     src: tomcat-systemd.j2
-    dest: "/etc/systemd/system/{{ tomcat_process_name }}.service"
+    dest: "/etc/systemd/system/{{ tomcat_system_name }}_{{ item.instance_name }}.service"
     owner: "{{ tomcat_system_user }}"
     group: "{{ tomcat_system_group }}"
     mode: 0750
