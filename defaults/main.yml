@@ -62,6 +62,11 @@ tomcat_instance:
     shutdown_source:  # Tweak this according yout network
       - "127.0.0.1/32"
     tomcat_juli_logging_level: "FINE"
+    debug_enable: false
+    debug_port: 8000
+    debug_local_only: false
+    debug_parameter: '-agentlib:jdwp=transport=dt_socket,address={{ "{{ ansible_hostname }}" if not tomcat_debug_local_only else "127.0.0.1" }}:{{ tomcat_debug_port }},server=y,suspend=n'
+
   - instance_name: 'tomcat_app_sys2'
     http_port: 8081
     http_stp: false
@@ -91,6 +96,10 @@ tomcat_instance:
     shutdown_source:  # Tweak this according yout network
       - "127.0.0.1/32"
     tomcat_juli_logging_level: "FINE"
+    debug_enable: false
+    debug_port: 8001
+    debug_local_only: false
+    debug_parameter: '-agentlib:jdwp=transport=dt_socket,address={{ "{{ ansible_hostname }}" if not tomcat_debug_local_only else "127.0.0.1" }}:{{ tomcat_debug_port }},server=y,suspend=n'
 
 tomcat_catalina_home: '{{ tomcat_system_home }}/tomcat{{ tomcat_majorversion }}'
 
