@@ -229,7 +229,7 @@ The firewalld zone name where connection are accepted for JMX shutdown connectio
 
 List of source ports where connection are accepted for JMX shutdown connections. This time only firewalld is supported. The default values are "127.0.0.1/32 means only local connection is accepted. This should narrowed.
 
-        tomcat_juli_logging_level: "FINE"
+        juli_logging_level: "FINE"
 
 Set [1catalina|2localhost|3manager|4host-manager].org.apache.juli.AsyncFileHandler.level and java.util.logging.ConsoleHandler.level to this loglevel. Possible values are:
   SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST or ALL. Default is FINE.
