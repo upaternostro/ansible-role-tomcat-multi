@@ -38,11 +38,11 @@ tomcat_instance:
     http_zone: "internal"
     http_source:  # Tweak this according yout network
       - "0.0.0.0/0"
-    tomcat_http_connection_timeout: 20000
-    tomcat_http_compression_mime_types: "text/html,text/xml,text/css,text/javascript,application/x-javascript,application/javascript"
-    tomcat_http_compression: true
-    tomcat_http_compression_min_size: 256
-    tomcat_http_compression_nocompress_user_agent: ""
+    http_connection_timeout: 20000
+    http_compression_mime_types: "text/html,text/xml,text/css,text/javascript,application/x-javascript,application/javascript"
+    http_compression: true
+    http_compression_min_size: 256
+    http_compression_nocompress_user_agent: ""
 
     ajp_port: 8009
     ajp_stp: false
@@ -61,7 +61,7 @@ tomcat_instance:
     shutdown_zone: "trusted"
     shutdown_source:  # Tweak this according yout network
       - "127.0.0.1/32"
-    tomcat_juli_logging_level: "FINE"
+    juli_logging_level: "FINE"
     debug_enable: false
     debug_port: 8000
     debug_local_only: false
@@ -73,11 +73,11 @@ tomcat_instance:
     http_zone: "internal"
     http_source:  # Tweak this according yout network
       - "0.0.0.0/0"
-    tomcat_http_connection_timeout: 20000
-    tomcat_http_compression_mime_types: "text/html,text/xml,text/css,text/javascript,application/x-javascript,application/javascript"
-    tomcat_http_compression: true
-    tomcat_http_compression_min_size: 256
-    tomcat_http_compression_nocompress_user_agent: ""
+    http_connection_timeout: 20000
+    http_compression_mime_types: "text/html,text/xml,text/css,text/javascript,application/x-javascript,application/javascript"
+    http_compression: true
+    http_compression_min_size: 256
+    http_compression_nocompress_user_agent: ""
     ajp_port: 8010
     ajp_stp: false
     ajp_zone: "trusted"
@@ -95,7 +95,7 @@ tomcat_instance:
     shutdown_zone: "trusted"
     shutdown_source:  # Tweak this according yout network
       - "127.0.0.1/32"
-    tomcat_juli_logging_level: "FINE"
+    juli_logging_level: "FINE"
     debug_enable: false
     debug_port: 8001
     debug_local_only: false
