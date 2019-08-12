@@ -98,7 +98,7 @@ tomcat_instance:
     juli_logging_level: "FINE"
     debug_enable: false
     debug_port: 8001
-    debug_sever: {{ ansible_hostname }} # or 127.0.0.1
+    debug_sever: '{{ ansible_hostname }}' # or 127.0.0.1
     debug_parameter: '-agentlib:jdwp=transport=dt_socket,address={{ item.debug_sever }}:{{ item.debug_port }},server=y,suspend=n'
 
 tomcat_catalina_home: '{{ tomcat_system_home }}/tomcat{{ tomcat_majorversion }}'
