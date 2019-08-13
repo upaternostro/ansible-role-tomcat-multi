@@ -61,6 +61,8 @@ tomcat_instance:
     shutdown_zone: "trusted"
     shutdown_source:  # Tweak this according yout network
       - "127.0.0.1/32"
+    file_encoding: UTF-8
+    page_encoding: UTF-8
     juli_logging_level: "FINE"
     debug_enable: false
     debug_port: 8000
@@ -95,6 +97,8 @@ tomcat_instance:
     shutdown_zone: "trusted"
     shutdown_source:  # Tweak this according yout network
       - "127.0.0.1/32"
+    file_encoding: UTF-8
+    page_encoding: UTF-8
     juli_logging_level: "FINE"
     debug_enable: false
     debug_port: 8001

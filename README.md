@@ -51,14 +51,6 @@ Since the process address space are virtual, the CPU and the operating system ha
 
 When you enable it use [KAMI911:hugepages](https://galaxy.ansible.com/KAMI911/hugepages/) to configure Huge Pages in Linux.
 
-    tomcat_file_encoding: UTF-8
-
-Tomcat file encoding parameter: UTF-8
-
-    tomcat_page_encoding: UTF-8
-
-Tomcat page encoding parameter: UTF-8
-
     tomcat_access_log_pattern: "%h %l %u %t &quot;%r&quot; %s %b"
 
 Pattern string of Tomcat access log. Tomcat [Access Logging](https://tomcat.apache.org/tomcat-9.0-doc/config/valve.html#Access_Logging):
@@ -228,6 +220,14 @@ The firewalld zone name where connection are accepted for JMX shutdown connectio
           - "127.0.0.1/32"
 
 List of source ports where connection are accepted for JMX shutdown connections. This time only firewalld is supported. The default values are "127.0.0.1/32 means only local connection is accepted. This should narrowed.
+
+        file_encoding: UTF-8
+
+Tomcat file encoding parameter: UTF-8
+
+        page_encoding: UTF-8
+
+Tomcat page encoding parameter: UTF-8
 
         juli_logging_level: "FINE"
 
