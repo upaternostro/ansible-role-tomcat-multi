@@ -56,7 +56,7 @@
                redirectPort="{{ item.1.https_port }}"
                Server=" "
                URIEncoding="{{ item.1.page_encoding }}"
-               Secure="{% if session_secure == True %}true{% else %}false{% endif %}"
+               Secure="{% if tomcat_session_secure == True %}true{% else %}false{% endif %}"
                compressibleMimeType="{{ item.1.http_compression_mime_types }}"
                compression="{% if item.1.http_compression == True %}on{% else %}off{% endif %}"
                compressionMinSize="{{ item.1.http_compression_min_size }}"
