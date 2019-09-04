@@ -1,3 +1,5 @@
+---
+
 image: centos:7
 
 before_script:
@@ -9,6 +11,6 @@ before_script:
   - ls -la
 
 test:
-  stage: test
-  script:
-  - molecule test
+    stage: test
+    script:
+      - molecule test
