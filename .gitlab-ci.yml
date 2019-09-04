@@ -11,6 +11,6 @@ before_script:
   - ls -la
 
 test:
-    stage: test
-    script:
-      - molecule test
+  stage: test
+  script:
+    - molecule test
