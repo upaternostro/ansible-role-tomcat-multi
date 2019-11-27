@@ -51,7 +51,7 @@ Since the process address space are virtual, the CPU and the operating system ha
 
 When you enable it use [KAMI911:hugepages](https://galaxy.ansible.com/KAMI911/hugepages/) to configure Huge Pages in Linux.
 
-    tomcat_access_log_pattern: "%h %l %u %t &quot;%r&quot; %s %b"
+    tomcat_access_log_pattern: "%{yyyy-MM-dd hh:mm:ss.SSS}t %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{User-Agent}i %{Referer}i"
 
 Pattern string of Tomcat access log. Tomcat [Access Logging](https://tomcat.apache.org/tomcat-9.0-doc/config/valve.html#Access_Logging):
 
@@ -229,10 +229,18 @@ Tomcat file encoding parameter: UTF-8
 
 Tomcat page encoding parameter: UTF-8
 
+        juli_logging_format: "%1$tY.%1$tm.%1$td %1$tT.%1$tL %4$-4s %5$s [%2$s]%6$s%n"
+
+Logging format for general Tomcat logs.
+
         juli_logging_level: "FINE"
 
 Set [1catalina|2localhost|3manager|4host-manager].org.apache.juli.AsyncFileHandler.level and java.util.logging.ConsoleHandler.level to this loglevel. Possible values are:
   SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST or ALL. Default is FINE.
+
+    tomcat_juli_logging_handler: "AsyncFileHandler" # TODO: Tomcat 6-7 uses only FileHandler
+
+Use AsyncFileHandler for never Tomcat 8-9.
 
     tomcat_manage_firewalld: true
 
