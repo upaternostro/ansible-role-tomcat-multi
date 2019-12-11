@@ -43,9 +43,9 @@
     dest: "/etc/systemd/system/{{ tomcat_system_name }}_{{ item.instance_name }}.service"
     owner: "{{ tomcat_system_user }}"
     group: "{{ tomcat_system_group }}"
-    mode: 0750
+    mode: 0644
   with_items: "{{ tomcat_instance }}"
-  when: not (ansible_os_family == 'RedHat' and ansible_distribution_major_version|int == '6')
+  when: not (ansible_os_family == 'RedHat' and ansible_distribution_major_version|int[5~ == '6')
 
 - name: "Prepare daily catalina.out logrotate"
   template:
