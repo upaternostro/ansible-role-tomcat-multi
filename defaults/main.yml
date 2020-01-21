@@ -27,12 +27,14 @@ tomcat_download_dir: '{{ tomcat_base_folder }}/tmp'
 
 tomcat_system_name: 'tomcat_app'
 
+
 # tomcat_system_home: '{{ tomcat_base_folder }}/{{ tomcat_system_user }}' # This is an optional setting to use tomcat_system_name for this system.
 
 tomcat_system_home: '{{ tomcat_base_folder }}/{{ tomcat_system_name }}'
 
 tomcat_instance:
   - instance_name: 'tomcat_app_sys1'
+    service_enabled: true
     http_port: 8080
     http_stp: false
     http_zone: "internal"
@@ -71,6 +73,7 @@ tomcat_instance:
     debug_parameter: '-agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n'
 
   - instance_name: 'tomcat_app_sys2'
+    service_enabled: true
     http_port: 8081
     http_stp: false
     http_zone: "internal"
@@ -181,6 +184,9 @@ tomcat_access_log_pattern: "%{yyyy-MM-dd hh:mm:ss.SSS}t %h (%{X-Forwarded-For}i)
 # Without user agent and referer: "%{yyyy-MM-dd hh:mm:ss.SSS}t %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D"
 
 tomcat_juli_logging_handler: "AsyncFileHandler"  # TODO: Tomcat 6-7 uses only FileHandler
+
+tomcat_access_log_pattern: "%{yyyy-MM-dd hh:mm:ss.SSS}t %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{User-Agent}i %{Referer}i"
+# Without user agent and referer: "%{yyyy-MM-dd hh:mm:ss.SSS}t %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D"
 
 tomcat_session_timeout: 30
 tomcat_session_http_only: true

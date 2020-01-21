@@ -1,14 +1,14 @@
-# Ansible Role: Installs Apache Tomcat Java Application server (optionally with Hugepages)
+# Ansible Role: Installs Apache Tomcat Java Application server in multiple running instances (optionally with Hugepages)
 
-Installs Apache Tomcat Java Application server. Most complete Tomcat installation, supporting, init.d script, application naming, hugepages, hardening, beautiful error pages, sha512 hashed passwords, JMX configuration, multiple Tomcat versions, separated catalina_home and caralina_base.
+Installs Apache Tomcat Java Application server in multiple running instances. Most complete Tomcat installation, supporting, init.d script, application naming, hugepages, hardening, beautiful error pages, sha512 hashed passwords, JMX configuration, multiple Tomcat versions, separated catalina_home and caralina_base.
 
 [![Build Status](https://travis-ci.org/KAMI911/ansible-role-tomcat-multi.svg?branch=master)](https://travis-ci.org/KAMI911/ansible-role-tomcat-multi)
 
 ## Table of Contents
 
 1. [Requirements][Requirements]
-2. [Role Variables][Role Variables]
-3. [Installation][Installation]
+2. [Installation][Installation]
+3. [Role Variables][Role Variables]
 4. [Dependencies][Dependencies]
 5. [Example Playbook][Example Playbook]
 6. [Licensing][Licensing]
@@ -29,6 +29,38 @@ None.
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
+### Installation releted options
+
+    tomcat_manage_java_pkg: False
+
+Tomcat manage java installation an install OpenJDK or not.
+
+    tomcat_installer_force_download: true
+
+Always download the installation file. If already downloaded try to redownload it.
+
+    tomcat_installer_force_overwrite: true
+
+Always overwrite the installation file on the target machine.
+
+    tomcat_installer_keep: true
+
+Do not delete the installer after the successful installation.
+
+    tomcat_installer_local: false
+
+Download installation installation file to the Ansible host machine (not to the target machine) diredctly. Ansible will download and copy he installation file from the Ansible host machine.
+
+    tomcat_download_validate_certs: false
+
+Validate cert doring the external installation file download.
+
+    tomcat_force_update: false
+
+Force update when same version is already installed. Old version is always updated.
+
+### Version related options
+
     tomcat_majorversion: 8
 
 Tomcat major version.
@@ -41,6 +73,12 @@ Tomcat minor version.
 
 Tomcat micro version.
 
+    tomcat_java_version: 11
+
+Configure Tomcat to use the specified version version of Java.
+
+### Hugapeges usage related options
+
     tomcat_use_huge_pages: True
 
 Use Huge Pages (Java calls it: UseLargePages) for enhance performance of Java applications. When a process uses some memory, the CPU is marking the RAM as used by that process. For efficiency, the CPU allocate RAM by chunks of 4K bytes (it's the default value on many platforms). Those chunks are named pages. Those pages can be swapped to disk, etc.
@@ -51,102 +89,36 @@ Since the process address space are virtual, the CPU and the operating system ha
 
 When you enable it use [KAMI911:hugepages](https://galaxy.ansible.com/KAMI911/hugepages/) to configure Huge Pages in Linux.
 
-    tomcat_access_log_pattern: "%{yyyy-MM-dd hh:mm:ss.SSS}t %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{User-Agent}i %{Referer}i"
+### Port, connection, and firewall related options
 
-Pattern string of Tomcat access log. Tomcat [Access Logging](https://tomcat.apache.org/tomcat-9.0-doc/config/valve.html#Access_Logging):
+    tomcat_manage_firewalld: true
 
-Values for the pattern attribute are made up of literal text strings, combined with pattern identifiers prefixed by the "%" character to cause replacement by the corresponding variable value from the current request and response. The following pattern codes are supported:
+Role manages the firewalld settings of required ports.
 
-    %a - Remote IP address
-    %A - Local IP address
-    %b - Bytes sent, excluding HTTP headers, or '-' if zero
-    %B - Bytes sent, excluding HTTP headers
-    %h - Remote host name (or IP address if enableLookups for the connector is false)
-    %H - Request protocol
-    %l - Remote logical username from identd (always returns '-')
-    %m - Request method (GET, POST, etc.)
-    %p - Local port on which this request was received. See also %{xxx}p below.
-    %q - Query string (prepended with a '?' if it exists)
-    %r - First line of the request (method and request URI)
-    %s - HTTP status code of the response
-    %S - User session ID
-    %t - Date and time, in Common Log Format
-    %u - Remote user that was authenticated (if any), else '-'
-    %U - Requested URL path
-    %v - Local server name
-    %D - Time taken to process the request in millis. Note: In httpd %D is microseconds. Behaviour will be aligned to httpd in Tomcat 10 onwards.
-    %T - Time taken to process the request, in seconds. Note: This value has millisecond resolution whereas in httpd it has second resolution. Behaviour will be align to httpd in Tomcat 10 onwards.
-    %F - Time taken to commit the response, in millis
-    %I - Current request thread name (can compare later with stacktraces)
-    %X - Connection status when response is completed:
-        X = Connection aborted before the response completed.
-        + = Connection may be kept alive after the response is sent.
-        - = Connection will be closed after the response is sent.
+    tomcat_manage_firewalld_use_zone: true
 
- There is also support to write information incoming or outgoing headers, cookies, session or request attributes and special timestamp formats. It is modeled after the Apache HTTP Server log configuration syntax. Each of them can be used multiple times with different xxx keys:
+Tomcat firewalld uses zones (default) or use source addresses.
 
-    %{xxx}i write value of incoming header with name xxx
-    %{xxx}o write value of outgoing header with name xxx
-    %{xxx}c write value of cookie with name xxx
-    %{xxx}r write value of ServletRequest attribute with name xxx
-    %{xxx}s write value of HttpSession attribute with name xxx
-    %{xxx}p write local (server) port (xxx==local) or remote (client) port (xxx=remote)
-    %{xxx}t write timestamp at the end of the request formatted using the enhanced SimpleDateFormat pattern xxx
+## Multiple instances
 
-All formats supported by SimpleDateFormat are allowed in %{xxx}t. In addition the following extensions have been added:
+This Ansible Tomcat Multi instalnces role support to install more thank one Tomcat instances in same
+enviroment. Every instances has own name and configuration parameters.
 
-    sec - number of seconds since the epoch
-    msec - number of milliseconds since the epoch
-    msec_frac - millisecond fraction
+Set the instance name. This name will appear in saveral places from folder names and running instance names to log file names.
 
-These formats cannot be mixed with SimpleDateFormat formats in the same format token.
+The next parameters is configurable for every instances. Please set all parameters since they havent got any default value - so far.
 
-Furthermore one can define whether to log the timestamp for the request start time or the response finish time:
-
-    begin or prefix begin: chooses the request start time
-    end or prefix end: chooses the response finish time
-
-By adding multiple %{xxx}t tokens to the pattern, one can also log both timestamps.
-
-The shorthand pattern pattern="common" corresponds to the Common Log Format defined by '%h %l %u %t "%r" %s %b'.
-
-The shorthand pattern pattern="combined" appends the values of the Referer and User-Agent headers, each in double quotes, to the common pattern.
-
-    tomcat_use_secure_flag: True
-
-Set this attribute to True if you wish to have calls to request.isSecure() to return true for requests received by this Connector. You would want this on an SSL Connector or a non SSL connector that is receiving data from a SSL accelerator, like a crypto card, a SSL appliance or even a webserver. The default value is False.
-
-    tomcat_session_http_only: True
-
-Forcing Tomcat to use JSESSIONID cookie over only http.
-
-    tomcat_session_secure: True
-
-Forcing Tomcat to use secure JSESSIONID cookie.
-
-    tomcat_manage_java_pkg: False
-
-Tomcat manage java installation an install OpenJDK or not.
-
-    tomcat_system_name: "tomcat_app"
-
-Use this folder name for this tomcat main folder.
-
-    tomcat_system_home: "{{ tomcat_base_folder }}/{{ tomcat_system_user }}"
-
-Folder of Tomcat binaries using tomcat_system_home variable.
-
-    tomcat_catalina_home: '{{ tomcat_system_home }}/tomcat{{ tomcat_majorversion }}'
-
-Tomcat Cataline home folder.
-
-    tomcat_instance:
+    tomcat_instance: 'tomcat_app_sys1'
 
 List of dictioneries where the tomcat instances are configured.
 
       - instance_name: 'tomcat_app_sys1'
 
 Name of first instance. Also this variable used as name of instance folder name, start/stop script and process identifier.
+
+	service_enabled: true
+
+Enable or disable tomcat service on system startup.
 
         http_port: 8080
 
@@ -229,6 +201,8 @@ Tomcat file encoding parameter: UTF-8
 
 Tomcat page encoding parameter: UTF-8
 
+### Logging related options for instances
+
         juli_logging_format: "%1$tY.%1$tm.%1$td %1$tT.%1$tL %4$-4s %5$s [%2$s]%6$s%n"
 
 Logging format for general Tomcat logs.
@@ -238,27 +212,126 @@ Logging format for general Tomcat logs.
 Set [1catalina|2localhost|3manager|4host-manager].org.apache.juli.AsyncFileHandler.level and java.util.logging.ConsoleHandler.level to this loglevel. Possible values are:
   SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST or ALL. Default is FINE.
 
-    tomcat_juli_logging_handler: "AsyncFileHandler" # TODO: Tomcat 6-7 uses only FileHandler
+### Debug port related options for instances
 
-Use AsyncFileHandler for never Tomcat 8-9.
+    debug_enable: false
 
-    tomcat_manage_firewalld: true
+Enable Tomcat debug port.
 
-Role manages the firewalld settings of required ports.
+    debug_port: 8000
 
-    tomcat_manage_firewalld_use_zone: true
+Specify Tomcat debug port.
 
-Tomcat firewalld uses zones (default) or use source addresses.
+    debug_sever: '{{ ansible_hostname }}' # or 127.0.0.1
+
+Permit connection from all location of from local connection only.
+
+    debug_parameter: '-agentlib:jdwp=transport=dt_socket,address={{ item.debug_sever }}:{{ tomcat_debug_port }},server=y,suspend=n'
+
+Specify Tomcat debug parameters.
+
+### Logging related options
 
     tomcat_catalina_logs_directory_mode: "u=rwx,g=rwx,o="
 
 Tomcat catalina logs directory mode.
 
-    tomcat_java_version: 11
+    tomcat_access_log_pattern: "%{yyyy-MM-dd hh:mm:ss.SSS}t %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{User-Agent}i %{Referer}i"
 
-Configure Tomcat to use the specified version version of Java.
+Pattern string of Tomcat access log. Tomcat [Access Logging](https://tomcat.apache.org/tomcat-9.0-doc/config/valve.html#Access_Logging):
 
-Tomcat LDAP authentication configuration:
+Values for the pattern attribute are made up of literal text strings, combined with pattern identifiers prefixed by the "%" character to cause replacement by the corresponding variable value from the current request and response. The following pattern codes are supported:
+
+    %a - Remote IP address
+    %A - Local IP address
+    %b - Bytes sent, excluding HTTP headers, or '-' if zero
+    %B - Bytes sent, excluding HTTP headers
+    %h - Remote host name (or IP address if enableLookups for the connector is false)
+    %H - Request protocol
+    %l - Remote logical username from identd (always returns '-')
+    %m - Request method (GET, POST, etc.)
+    %p - Local port on which this request was received. See also %{xxx}p below.
+    %q - Query string (prepended with a '?' if it exists)
+    %r - First line of the request (method and request URI)
+    %s - HTTP status code of the response
+    %S - User session ID
+    %t - Date and time, in Common Log Format
+    %u - Remote user that was authenticated (if any), else '-'
+    %U - Requested URL path
+    %v - Local server name
+    %D - Time taken to process the request in millis. Note: In httpd %D is microseconds. Behaviour will be aligned to httpd in Tomcat 10 onwards.
+    %T - Time taken to process the request, in seconds. Note: This value has millisecond resolution whereas in httpd it has second resolution. Behaviour will be align to httpd in Tomcat 10 onwards.
+    %F - Time taken to commit the response, in millis
+    %I - Current request thread name (can compare later with stacktraces)
+    %X - Connection status when response is completed:
+        X = Connection aborted before the response completed.
+        + = Connection may be kept alive after the response is sent.
+        - = Connection will be closed after the response is sent.
+
+ There is also support to write information incoming or outgoing headers, cookies, session or request attributes and special timestamp formats. It is modeled after the Apache HTTP Server log configuration syntax. Each of them can be used multiple times with different xxx keys:
+
+    %{xxx}i write value of incoming header with name xxx
+    %{xxx}o write value of outgoing header with name xxx
+    %{xxx}c write value of cookie with name xxx
+    %{xxx}r write value of ServletRequest attribute with name xxx
+    %{xxx}s write value of HttpSession attribute with name xxx
+    %{xxx}p write local (server) port (xxx==local) or remote (client) port (xxx=remote)
+    %{xxx}t write timestamp at the end of the request formatted using the enhanced SimpleDateFormat pattern xxx
+
+All formats supported by SimpleDateFormat are allowed in %{xxx}t. In addition the following extensions have been added:
+
+    sec - number of seconds since the epoch
+    msec - number of milliseconds since the epoch
+    msec_frac - millisecond fraction
+
+These formats cannot be mixed with SimpleDateFormat formats in the same format token.
+
+Furthermore one can define whether to log the timestamp for the request start time or the response finish time:
+
+    begin or prefix begin: chooses the request start time
+    end or prefix end: chooses the response finish time
+
+By adding multiple %{xxx}t tokens to the pattern, one can also log both timestamps.
+
+The shorthand pattern pattern="common" corresponds to the Common Log Format defined by '%h %l %u %t "%r" %s %b'.
+
+The shorthand pattern pattern="combined" appends the values of the Referer and User-Agent headers, each in double quotes, to the common pattern.
+
+    tomcat_juli_logging_handler: "AsyncFileHandler" # TODO: Tomcat 6-7 uses only FileHandler
+
+Use AsyncFileHandler for never Tomcat 8-9.
+
+### Tomcat hardening related options
+
+    tomcat_use_secure_flag: True
+
+Set this attribute to True if you wish to have calls to request.isSecure() to return true for requests received by this Connector. You would want this on an SSL Connector or a non SSL connector that is receiving data from a SSL accelerator, like a crypto card, a SSL appliance or even a webserver. The default value is False.
+
+    tomcat_session_http_only: True
+
+Forcing Tomcat to use JSESSIONID cookie over only http.
+
+    tomcat_session_secure: True
+
+Forcing Tomcat to use secure JSESSIONID cookie.
+
+    tomcat_manage_java_pkg: False
+
+Tomcat manage java installation an install OpenJDK or not.
+
+    tomcat_system_name: "tomcat_app"
+
+Use this folder name for this tomcat main folder.
+
+    tomcat_system_home: "{{ tomcat_base_folder }}/{{ tomcat_system_user }}"
+
+Folder of Tomcat binaries using tomcat_system_home variable.
+
+    tomcat_catalina_home: '{{ tomcat_system_home }}/tomcat{{ tomcat_majorversion }}'
+
+Tomcat Cataline home folder.
+
+### Tomcat LDAP authentication configuration related options
 
     tomcat_ldap_enable: false
 
@@ -290,7 +363,11 @@ Name of authenticated users for Tomcat LDAP authentication. Default setting is (
 
     tomcat_ldap_user_referrals: 'follow'
 
-
+Referrals allow a directory tree to be partitioned and distributed between multiple LDAP servers, which means that LDAP servers may not store the entire
+DIT while still being capable of containing references to other LDAP servers that offer requested information instead. So, when you browse a directory,
+an LDAP server can refer you to another server by returning referrals. A referral is an entry with the referral objectClass, which contains at least one
+attribute named ref having an LDAP URL of the referred entry on another LDAP server as its value.
+https://www.ldapadministrator.com/resources/english/help/la20121/ch05s05.html
 
     tomcat_ldap_user_subtree: true
 
@@ -312,21 +389,6 @@ Tomcat LDAP group could be on the subtree of Organization Unit.
 
 Every member matching the security group's name could access the server as specified in the role.
 
-    debug_enable: false
-
-Enable Tomcat debug port.
-
-    debug_port: 8000
-
-Specify Tomcat debug port.
-
-    debug_sever: '{{ ansible_hostname }}' # or 127.0.0.1
-
-Permit connection from all location of from local connection only.
-
-    debug_parameter: '-agentlib:jdwp=transport=dt_socket,address={{ item.debug_sever }}:{{ tomcat_debug_port }},server=y,suspend=n'
-
-Specify Tomcat debug parameters.
 
 ### Tomcat log compression options
 
@@ -424,8 +486,8 @@ If you find this useful, please consider a donation:
 
 <!-- TOC URLs -->
 [Requirements]: #requirements
-[Role Variables]: #role_variables
 [Installation]: #installation
+[Role Variables]: #role_variables
 [Dependencies]: #dependencies
 [Example Playbook]: #example_playbook
 [Licensing]: #licensing
