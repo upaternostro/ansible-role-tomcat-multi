@@ -65,7 +65,7 @@ tomcat_instance:
       - "127.0.0.1/32"
     file_encoding: UTF-8
     page_encoding: UTF-8
-    juli_logging_format: "%1$tY.%1$tm.%1$tdT%1$tT.%1$tL%1$tXXX %4$-4s %5$s [%2$s]%6$s%n"
+    juli_logging_format: "%1$tY.%1$tm.%1$tdT%1$tT.%1$tL%1$tz %4$-4s %5$s [%2$s]%6$s%n"
 
 Logging format for general Tomcat logs.
 
@@ -113,7 +113,7 @@ https://docs.oracle.com/javase/7/docs/api/java/util/logging/SimpleFormatter.html
       - "127.0.0.1/32"
     file_encoding: UTF-8
     page_encoding: UTF-8
-    juli_logging_format: "%1$tY.%1$tm.%1$tdT%1$tT.%1$tL%1$tXXX %4$-4s %5$s [%2$s]%6$s%n"
+    juli_logging_format: "%1$tY.%1$tm.%1$tdT%1$tT.%1$tL%1$tz %4$-4s %5$s [%2$s]%6$s%n"
     juli_logging_level: "FINE"
     debug_enable: false
     debug_port: 8001
@@ -189,11 +189,10 @@ tomcat_file_encoding: UTF-8
 tomcat_page_encoding: UTF-8
 
 tomcat_use_secure_flag: true
-
-tomcat_access_log_pattern: "%{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}t %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{Referer}i %{User-Agent}i"
-# Also with encoding:      "%{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}t %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{Referer}i %{Accept-Encoding}i %{User-Agent}i"
-# Without user agent and referer: "%{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}t %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D"
-# RFC5425 compatible: "<134>1 {yyyy-MM-dd'T'HH:mm:ss.SSSXXX}t %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{Referer}i %{User-Agent}i"
+tomcat_access_log_pattern: "%{yyyy-MM-dd}tT%{HH:mm:ss.SSSXXX}t %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{Referer}i %{User-Agent}i"
+# Also with encoding:      "%{yyyy-MM-dd}tT%{HH:mm:ss.SSSXXX}t %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{Referer}i %{Accept-Encoding}i %{User-Agent}i"
+# Without user agent and referer: "%{yyyy-MM-dd}tT%{HH:mm:ss.SSSXXX}t %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D"
+# RFC5425 compatible: "<134>1 %{yyyy-MM-dd}tT%{HH:mm:ss.SSSXXX}t %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{Referer}i %{User-Agent}i"
 
 tomcat_juli_logging_handler: "AsyncFileHandler"  # TODO: Tomcat 6-7 uses only FileHandler
 
