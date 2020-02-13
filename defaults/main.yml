@@ -180,13 +180,12 @@ tomcat_page_encoding: UTF-8
 
 tomcat_use_secure_flag: true
 
-tomcat_access_log_pattern: "%{yyyy-MM-dd hh:mm:ss.SSS}t %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %{User-Agent}i %{Referer}i %b %D"
-# Without user agent and referer: "%{yyyy-MM-dd hh:mm:ss.SSS}t %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D"
+tomcat_access_log_pattern: "%{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}t %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{Referer}i %{User-Agent}i"
+# Also with encoding:      "%{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}t %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{Referer}i %{Accept-Encoding}i %{User-Agent}i"
+# Without user agent and referer: "%{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}t %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D"
+# RFC5425 compatible: "<134>1 {yyyy-MM-dd'T'HH:mm:ss.SSSXXX}t %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{Referer}i %{User-Agent}i"
 
 tomcat_juli_logging_handler: "AsyncFileHandler"  # TODO: Tomcat 6-7 uses only FileHandler
-
-tomcat_access_log_pattern: "%{yyyy-MM-dd hh:mm:ss.SSS}t %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{User-Agent}i %{Referer}i"
-# Without user agent and referer: "%{yyyy-MM-dd hh:mm:ss.SSS}t %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D"
 
 tomcat_session_timeout: 30
 tomcat_session_http_only: true
