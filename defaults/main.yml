@@ -66,21 +66,19 @@ tomcat_instance:
     file_encoding: UTF-8
     page_encoding: UTF-8
     juli_logging_format: "%1$tY.%1$tm.%1$tdT%1$tT.%1$tL%1$tz %4$-4s %5$s [%2$s]%6$s%n"
-
-Logging format for general Tomcat logs.
-
-The timestamp format is described here:
-https://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html#dt
-https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
-
-Format is described here:
-https://docs.oracle.com/javase/7/docs/api/java/util/logging/SimpleFormatter.html#format(java.util.logging.LogRecord)
-
     juli_logging_level: "FINE"
     debug_enable: false
     debug_port: 8000
     debug_sever: '{{ ansible_hostname }}'  # or 127.0.0.1
     debug_parameter: '-agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n'
+    # Memory sizes in megabytes (m)
+    tomcat_java_heap_min: 4096
+    tomcat_java_heap_max: 4096
+    ## Only for Java 7 or older
+    tomcat_java_permsize_min: 384
+    tomcat_java_permsize_max: 384
+    # Java thread stack size in kilobytes (k)
+    tomcat_java_thread_stack_size: 512
 
   - instance_name: 'tomcat_app_sys2'
     service_enabled: true
@@ -119,6 +117,14 @@ https://docs.oracle.com/javase/7/docs/api/java/util/logging/SimpleFormatter.html
     debug_port: 8001
     debug_sever: '{{ ansible_hostname }}'  # or 127.0.0.1
     debug_parameter: '-agentlib:jdwp=transport=dt_socket,address=*:8001,server=y,suspend=n'
+    # Memory sizes in megabytes (m)
+    tomcat_java_heap_min: 4096
+    tomcat_java_heap_max: 4096
+    ## Only for Java 7 or older
+    tomcat_java_permsize_min: 384
+    tomcat_java_permsize_max: 384
+    # Java thread stack size in kilobytes (k)
+    tomcat_java_thread_stack_size: 512
 
 tomcat_catalina_home: '{{ tomcat_system_home }}/tomcat{{ tomcat_majorversion }}'
 
@@ -156,18 +162,11 @@ tomcat_java_gc_cms: -XX:+CMSClassUnloadingEnabled
 tomcat_java_gc_g1: -XX:MaxGCPauseMillis=500 -XX:ParallelGCThreads=8 -XX:InitiatingHeapOccupancyPercent=85
 tomcat_java_gc_other:
 
-# Memory sizes in megabytes (m)
-tomcat_java_heap_min: 4096
-tomcat_java_heap_max: 4096
-
-## Only for Java 7 or older
-tomcat_java_permsize_min: 384
-tomcat_java_permsize_max: 384
-
 # JMX configuration
 tomcat_jmx_host: '{{ ansible_default_ipv4.address | default("127.0.0.1") }}'
 tomcat_shutdown_command: 'SHUTDOWN-Hr7lA6dgGQ'
 
+tomcat_jmx_authenticate: true
 tomcat_jmx_users:
   - user: monitoring
     pass: IAGeqqIFpLEiSxWpIhnASaDI31ds

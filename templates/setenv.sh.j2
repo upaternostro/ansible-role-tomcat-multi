@@ -4,13 +4,15 @@ JAVA_HOME={{ java_home }}
 JRE_HOME={{ java_home }}
 {% endif %}
 
-JAVA_MIN_HEAP={{ tomcat_java_heap_min }}
-JAVA_MAX_HEAP={{ tomcat_java_heap_max }}
+JAVA_MIN_HEAP={{ item.tomcat_java_heap_min }}
+JAVA_MAX_HEAP={{ item.tomcat_java_heap_max }}
 
 {% if tomcat_java_version <= 7 %}
-JAVA_MIN_PERMSIZE={{ tomcat_java_permsize_min }}
-JAVA_MAX_PERMSIZE={{ tomcat_java_permsize_max }}
+JAVA_MIN_PERMSIZE={{ item.tomcat_java_permsize_min }}
+JAVA_MAX_PERMSIZE={{ item.tomcat_java_permsize_max }}
 {% endif %}
+
+JAVA_THREAD_STACK_SIZE={{ item.tomcat_java_thread_stack_size }}
 
 CATALINA_OUT="${CATALINA_BASE}/logs/catalina/catalina.out"
 
@@ -25,7 +27,7 @@ PROCESS_NAME="{{ tomcat_system_name }}_{{ item.instance_name }}"
 # http://www.oracle.com/technetwork/java/javase/tech/largememory-jsp-137182.html
 
 CATALINA_OPTS="${CATALINA_OPTS} -server -Djava.net.preferIPv4Stack=true -Dfile.encoding={{ item.file_encoding }}"
-CATALINA_OPTS="${CATALINA_OPTS} -Xms${JAVA_MIN_HEAP}m -Xmx${JAVA_MAX_HEAP}m -Xmn2g -Xss512k"
+CATALINA_OPTS="${CATALINA_OPTS} -Xms${JAVA_MIN_HEAP}m -Xmx${JAVA_MAX_HEAP}m -Xmn2g -Xss${JAVA_THREAD_STACK_SIZE}k"
 {% if tomcat_java_gc == 'CMSGC' %}
 CATALINA_OPTS="${CATALINA_OPTS} -XX:+UseConcMarkSweepGC {{ tomcat_java_gc_cms }}"
 {% elif tomcat_java_gc == 'G1GC' %}
@@ -49,7 +51,7 @@ CATALINA_OPTS="${CATALINA_OPTS} -XX:PermSize=${JAVA_MIN_PERMSIZE}m -XX:MaxPermSi
 
 CATALINA_OPTS="${CATALINA_OPTS} -Dprocessname=${PROCESS_NAME}"
 
-CATALINA_OPTS="${CATALINA_OPTS} -Djava.rmi.server.hostname={{ tomcat_jmx_host }} -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port={{ item.jmx_port }} -Dcom.sun.management.jmxremote.rmi.port={{ item.jmx_port }} -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=true -Dcom.sun.management.jmxremote.password.file=${CATALINA_BASE}/conf/{{ item.instance_name }}.jmxremote.password -Dcom.sun.management.jmxremote.access.file=${CATALINA_BASE}/conf/{{ item.instance_name }}.jmxremote.access"
+CATALINA_OPTS="${CATALINA_OPTS} -Djava.rmi.server.hostname={{ tomcat_jmx_host }} -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port={{ item.jmx_port }} -Dcom.sun.management.jmxremote.rmi.port={{ item.jmx_port }} -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate={% if {% tomcat_jmx_authenticate == True %}true{% else %}false{% endif %} -Dcom.sun.management.jmxremote.password.file=${CATALINA_BASE}/conf/{{ item.instance_name }}.jmxremote.password -Dcom.sun.management.jmxremote.access.file=${CATALINA_BASE}/conf/{{ item.instance_name }}.jmxremote.access"
 
 {% if item.debug_enable == true %}
 CATALINA_OPTS="${CATALINA_OPTS} {{ item.debug_parameter }}"
