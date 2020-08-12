@@ -8,6 +8,9 @@ sudo: true
 services:
   - docker
 
+env:
+  - MOLECULE_NO_LOG="false"
+
 install:
   - pip install ansible>=2.4.3.0
   - pip install ansible-lint>=3.4.20
