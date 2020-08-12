@@ -10,18 +10,18 @@ services:
 
 before_install:
   - sudo apt-get update
-  - sudo apt-get upgrade -y
-  - sudo apt-get purge docker-ce -y
-  - sudo apt-get autoremove -y
-  - curl -fsSL https://raw.githubusercontent.com/darkwizard242/devopsubuntu1804/v1.0/packer-build/mods/10-docker.sh | sudo bash -s -- install
-  - sudo usermod -aG docker $USER
-  - curl -fsSL https://raw.githubusercontent.com/darkwizard242/devopsubuntu1804/v1.0/packer-build/mods/10-docker.sh | sudo bash -s -- restart
+    - sudo apt-get upgrade -y
+    - sudo apt-get purge docker-ce -y
+    - sudo apt-get autoremove -y
+    - curl -fsSL https://raw.githubusercontent.com/darkwizard242/devopsubuntu1804/v1.0/packer-build/mods/10-docker.sh | sudo bash -s -- install
+    - sudo usermod -aG docker $USER
+    - curl -fsSL https://raw.githubusercontent.com/darkwizard242/devopsubuntu1804/v1.0/packer-build/mods/10-docker.sh | sudo bash -s -- restart
 
 install:
-  - pip install ansible==2.4.3.0
+  - pip install ansible>=2.4.3.0
   - pip install ansible-lint>=3.4.20
   - pip install docker
-  - pip install molecule==2.17.0
+  - pip install molecule>=2.17.0
   - pip install docker-py
 
 script:
