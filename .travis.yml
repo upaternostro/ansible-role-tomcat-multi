@@ -12,7 +12,7 @@ env:
   - MOLECULE_NO_LOG="false"
 
 install:
-  - pip3 install ansible ansible-lint docker 'molecule[docker]' docker-py
+  - pip3 install ansible ansible-lint docker 'molecule[docker]'
 
 script:
   - travis_wait 60 molecule test
