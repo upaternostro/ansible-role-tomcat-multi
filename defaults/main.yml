@@ -65,6 +65,10 @@ tomcat_instance:
       - "127.0.0.1/32"
     file_encoding: UTF-8
     page_encoding: UTF-8
+    locale_language: en
+    locale_country: EN
+    locale_region:
+    locale_variant:
     juli_logging_format: "%1$tY.%1$tm.%1$tdT%1$tT.%1$tL%1$tz %4$-4s %5$s [%2$s]%6$s%n"
     juli_logging_level: "FINE"
     debug_enable: false
@@ -111,6 +115,10 @@ tomcat_instance:
       - "127.0.0.1/32"
     file_encoding: UTF-8
     page_encoding: UTF-8
+    locale_language: en
+    locale_country: EN
+    locale_region:
+    locale_variant:
     juli_logging_format: "%1$tY.%1$tm.%1$tdT%1$tT.%1$tL%1$tz %4$-4s %5$s [%2$s]%6$s%n"
     juli_logging_level: "FINE"
     debug_enable: false
