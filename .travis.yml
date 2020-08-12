@@ -1,6 +1,6 @@
 ---
 language: python
-python: "3.6"
+python: "3.8"
 
 # Use the new container infrastructure
 sudo: true
@@ -12,11 +12,7 @@ env:
   - MOLECULE_NO_LOG="false"
 
 install:
-  - pip install ansible>=2.4.3.0
-  - pip install ansible-lint>=3.4.20
-  - pip install docker
-  - pip install molecule>=2.17.0
-  - pip install docker-py
+  - pip install ansible ansible-lint docker molecule docker-py
 
 script:
   - travis_wait 60 molecule test
