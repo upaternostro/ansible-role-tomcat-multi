@@ -14,6 +14,11 @@ JAVA_MAX_PERMSIZE={{ item.tomcat_java_permsize_max }}
 
 JAVA_THREAD_STACK_SIZE={{ item.tomcat_java_thread_stack_size }}
 
+{% if tomcat_native_library_enable == true %}
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CATALINA_HOME/lib
+export LD_LIBRARY_PATH
+{% endif %}
+
 CATALINA_OUT="${CATALINA_BASE}/logs/catalina/catalina.out"
 
 {% if tomcat_catalina_parameters != '' %}
