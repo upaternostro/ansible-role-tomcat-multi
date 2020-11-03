@@ -16,6 +16,7 @@
   get_url:
     url: "{{ tomcat_custom_error_pages_url }}/{{ item.0 }}.jsp"
     dest: "{{ tomcat_system_home }}{{ item.1.instance_name }}/webapps/ROOT/errorpages/{{ item.0 }}.jsp"
+    mode: '0664'
   with_nested:
     - "{{ tomcat_custom_error_pages }}"
     - "{{ tomcat_instance }}"
@@ -25,6 +26,7 @@
   copy:
     src: "{{ item.0 }}.jsp"
     dest: "{{ tomcat_system_home }}{{ item.1.instance_name }}/webapps/ROOT/errorpages/{{ item.0 }}.jsp"
+    mode: '0664'
   with_nested:
     - "{{ tomcat_custom_error_pages }}"
     - "{{ tomcat_instance }}"

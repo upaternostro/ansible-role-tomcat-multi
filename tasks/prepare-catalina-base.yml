@@ -156,6 +156,7 @@
   template:
     src: '{{ item.0 }}.j2'
     dest: '{{ tomcat_system_home }}{{ item.1.instance_name }}/conf/{{ item.0 }}'
+    mode: '0640'
   with_nested:
     - [ 'context.xml', 'server.xml', 'web.xml', 'logging.properties', 'tomcat-users.xml' ]
     - "{{ tomcat_instance }}"
