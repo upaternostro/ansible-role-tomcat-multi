@@ -1,4 +1,4 @@
-molecule/default/*.tar.gz
+*.tar.gz
 *.pyc
 *.bak
 *.patch
