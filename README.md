@@ -137,6 +137,22 @@ The firewalld zone name where connection are accepted for http connections. This
 
 List of source ports where connection are accepted for http connections. This time only firewalld is supported. The default values are 0.0.0.0/0 means all connection is accepted. This should narrowed.
 
+        http_compression_mime_types: 'text/html,text/xml,text/css,text/javascript,application/x-javascript,application/javascript,text/plain'
+
+Tomcat http connection compressed MIME-types.
+
+        http_compression: true
+
+Tomcat http connection compressed content enable/disable.
+
+        http_compression_min_size: 256
+
+Tomcat http connection min compressed file size.
+
+        http_compression_nocompress_user_agent: ""
+
+Tomcat http connection must be uncompressed for these browser user agents.
+
         ajp_port: 8009
 
 Port number of ajp port of Tomcat instance sevice. Please define it carefuly, it should be not the same as other ports.
@@ -479,9 +495,9 @@ both the size and timestamp of a log file are considered.
 Location is the compressor program. Default is xz so the dafault value is '/usr/bin/xz'.
 You can also use for example: '/usr/bin/gzip'.
 
-    tomcat_log_compress_options: '-9e'
+    tomcat_log_compress_options: '-3'
 
-Options for compression program. For xz the default is '-9e' that means maximum compression.
+Options for compression program. For xz the default is '-3' that means well-balanced compression.
 For gzip íou can use for example: '-9'.
 
     tomcat_log_compress_extension: '.xz'
