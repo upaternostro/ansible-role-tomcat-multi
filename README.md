@@ -120,6 +120,8 @@ Name of first instance. Also this variable used as name of instance folder name,
 
 Enable or disable tomcat service on system startup.
 
+### HTTP connector
+
         http_port: 8080
 
 Port number of http port of Tomcat instance sevice. Please define it carefuly, it should be not the same as other ports.
@@ -149,9 +151,11 @@ Tomcat http connection compressed content enable/disable.
 
 Tomcat http connection min compressed file size.
 
-        http_compression_nocompress_user_agent: ""
+        http_compression_nocompress_user_agent: ''
 
 Tomcat http connection must be uncompressed for these browser user agents.
+
+### AJP connector
 
         ajp_port: 8009
 
@@ -170,6 +174,8 @@ The firewalld zone name where connection are accepted for ajp connections. This 
 
 List of source ports where connection are accepted for ajp connections. This time only firewalld is supported. The default values are 0.0.0.0/0 means all connection is accepted. This should narrowed.
 
+### HTTPS connector
+
         https_port: 8443
 
 Port number of https port of Tomcat instance sevice. Please define it carefuly, it should be not the same as other ports.
@@ -182,6 +188,46 @@ The firewalld zone name where connection are accepted for https connections. Thi
           - "0.0.0.0/0"
 
 List of source ports where connection are accepted for https connections. This time only firewalld is supported. The default values are 0.0.0.0/0 means all connection is accepted. This should narrowed.
+
+        https_compression_mime_types: 'text/html,text/xml,text/css,text/javascript,application/x-javascript,application/javascript,text/plain'
+
+Tomcat http connection compressed MIME-types.
+
+        https_compression: true
+
+Tomcat http connection compressed content enable/disable.
+
+        https_compression_min_size: 256
+
+Tomcat http connection min compressed file size.
+
+        https_compression_nocompress_user_agent: ''
+
+Tomcat http connection must be uncompressed for these browser user agents.
+
+#### Java Keystore file
+
+    https_certificate_keystore_file: ''
+
+The pathname of the keystore file where you have stored the server certificate and key to be loaded. By default, the pathname is the file .keystore in the operating system home directory of the user that is running Tomcat. If your keystoreType doesn't need a file use "" (empty string) or NONE for this parameter. Relative paths will be resolved against $CATALINA_BASE. A URI may also be used for this attribute. When using a domain keystore (keystoreType of DKS), this parameter should be the URI to the domain keystore. For example: conf/localhost-rsa.jks
+
+OR
+
+### OpenSSL PKI
+
+    https_certificate_key_file: ''
+
+OpenSSL only. Name of the file that contains the server private key. The format is PEM-encoded. The default value is the value of certificateFile and in this case both certificate and private key have to be in this file (NOT RECOMMENDED). Relative paths will be resolved against $CATALINA_BASE. For example: conf/localhost-rsa-key.pem
+
+    https_certificate_file: ''
+
+OpenSSL only. Name of the file that contains the concatenated certificates for the trusted certificate authorities. The format is PEM-encoded. Relative paths will be resolved against $CATALINA_BASE. For example: conf/localhost-rsa-cert.pem
+
+    https_certificate_chain_file: ''
+
+OpenSLL only Name of the file that contains the certificate chain associated with the server certificate used. The format is PEM-encoded. Relative paths will be resolved against $CATALINA_BASE. The certificate chain used for Tomcat should not include the server certificate as its first element. Note that when using more than one certificate for different types, they all must use the same certificate chain. For example conf/localhost-rsa-chain.pem
+
+### Additional ports and capabilities
 
         jmx_port: 48080
 
@@ -208,6 +254,8 @@ The firewalld zone name where connection are accepted for JMX shutdown connectio
           - "127.0.0.1/32"
 
 List of source ports where connection are accepted for JMX shutdown connections. This time only firewalld is supported. The default values are "127.0.0.1/32 means only local connection is accepted. This should narrowed.
+
+### Encodings
 
         file_encoding: UTF-8
 

@@ -36,7 +36,10 @@ tomcat_instance:
   - instance_name: 'tomcat_app_sys1'
     service_enabled: true
     http_port: 8080
+    http_connector: 'Http11NioProtocol'
     http_stp: false
+    http_max_threads: 300
+    http_min_spare_threads: 30
     http_zone: "internal"
     http_source:  # Tweak this according yout network
       - "0.0.0.0/0"
@@ -47,22 +50,42 @@ tomcat_instance:
     http_compression_nocompress_user_agent: ""
 
     ajp_port: 8009
+    ajp_connector: 'AjpNioProtocol'
     ajp_stp: false
+    ajp_max_threads: 300
+    ajp_min_spare_threads: 30
     ajp_zone: "trusted"
     ajp_source:  # Tweak this according yout network
       - "0.0.0.0/0"
+
     https_port: 8443
+    https_connector: 'Http11NioProtocol'
+    https_stp: false
+    https_max_threads: 300
+    https_min_spare_threads: 30
     https_zone: "internal"
     https_source:  # Tweak this according yout network
       - "0.0.0.0/0"
+    https_connection_timeout: 20000
+    https_compression_mime_types: 'text/html,text/xml,text/css,text/javascript,application/x-javascript,application/javascript,text/plain'
+    https_compression: true
+    https_compression_min_size: 256
+    https_compression_nocompress_user_agent: ""
+    https_certificate_keystore_file: ''
+    https_certificate_key_file: 'conf/localhost-rsa-key.pem'
+    https_certificate_file: 'conf/localhost-rsa-cert.pem'
+    https_certificate_chain_file: 'conf/localhost-rsa-chain.pem'
+
     jmx_port: 48080
     jmx_zone: "trusted"
     jmx_source:  # Tweak this according yout network
       - "0.0.0.0/0"
+
     shutdown_port: 49080
     shutdown_zone: "trusted"
     shutdown_source:  # Tweak this according yout network
       - "127.0.0.1/32"
+
     file_encoding: UTF-8
     page_encoding: UTF-8
     locale_language: en
