@@ -55,11 +55,11 @@ tomcat_instance:
     https_zone: "internal"
     https_source:  # Tweak this according yout network
       - "0.0.0.0/0"
-    jmx_port: 48080
+    jmx_port: 8040
     jmx_zone: "trusted"
     jmx_source:  # Tweak this according yout network
       - "0.0.0.0/0"
-    shutdown_port: 49080
+    shutdown_port: 8020
     shutdown_zone: "trusted"
     shutdown_source:  # Tweak this according yout network
       - "127.0.0.1/32"
@@ -105,11 +105,11 @@ tomcat_instance:
     https_zone: "internal"
     https_source:  # Tweak this according yout network
       - "0.0.0.0/0"
-    jmx_port: 48081
+    jmx_port: 8041
     jmx_zone: "trusted"
     jmx_source:  # Tweak this according yout network
       - "0.0.0.0/0"
-    shutdown_port: 49081
+    shutdown_port: 8021
     shutdown_zone: "trusted"
     shutdown_source:  # Tweak this according yout network
       - "127.0.0.1/32"
