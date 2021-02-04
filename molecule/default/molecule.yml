@@ -52,7 +52,7 @@ platforms:
   #    - firewalld_source
 
     - name: java-centos8-11-jdk
-      image: geerlingguy/docker-centos8-ansible
+      image: kami911/docker-centos8-ansible
       image_version: latest
       privileged: true
       groups:
@@ -61,7 +61,7 @@ platforms:
         - centos8
 
     - name: java-centos8-11-server-jre
-      image: geerlingguy/docker-centos8-ansible
+      image: kami911/docker-centos8-ansible
       image_version: latest
       privileged: true
       groups:
