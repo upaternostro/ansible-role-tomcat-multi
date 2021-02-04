@@ -196,7 +196,7 @@ The firewalld zone name where connection are accepted for JMX manager connection
 
 List of source ports where connection are accepted for JMX manager connections. This time only firewalld is supported. The default values are 0.0.0.0/0 means all connection is accepted. This should narrowed.
 
-        shutdown_port: 8020
+        shutdown_port: 8060
 
 Port number of JMX shutdown port of Tomcat instance sevice. Please define it carefuly, it should be not the same as other ports.
 
