@@ -16,11 +16,10 @@
 
 - name: 'configure firewalld for http port'
   firewalld:
-    port: '{{ item.0.http_port }}/tcp'
+    rich_rule: 'rule family=ipv4 source address="{{ item.1 }}" port port={{ item.0.http_port }} protocol=tcp accept'
     permanent: true
     immediate: true
     state: enabled
-    source: '{{ item.1 }}'
   with_subelements:
     - '{{ tomcat_instance }}'
     - http_source
@@ -28,11 +27,10 @@
 
 - name: 'configure firewalld for ajp port'
   firewalld:
-    port: '{{ item.0.ajp_port }}/tcp'
+    rich_rule: 'rule family=ipv4 source address="{{ item.1 }}" port port={{ item.0.ajp_port }} protocol=tcp accept'
     permanent: true
     immediate: true
     state: enabled
-    source: '{{ item.1 }}'
   with_subelements:
     - '{{ tomcat_instance }}'
     - ajp_source
@@ -40,11 +38,10 @@
 
 - name: 'configure firewalld for https port'
   firewalld:
-    port: '{{ item.0.https_port }}/tcp'
+    rich_rule: 'rule family=ipv4 source address="{{ item.1 }}" port port={{ item.0.https_port }} protocol=tcp accept'
     permanent: true
     immediate: true
     state: enabled
-    source: '{{ item.1 }}'
   with_subelements:
     - '{{ tomcat_instance }}'
     - https_source
@@ -52,11 +49,10 @@
 
 - name: 'configure firewalld for jmx port'
   firewalld:
-    port: '{{ item.0.jmx_port }}/tcp'
+    rich_rule: 'rule family=ipv4 source address="{{ item.1 }}" port port={{ item.0.jmx_port }} protocol=tcp accept'
     permanent: true
     immediate: true
     state: enabled
-    source: '{{ item.1 }}'
   with_subelements:
     - '{{ tomcat_instance }}'
     - jmx_source
@@ -64,11 +60,10 @@
 
 - name: 'configure firewalld for shutdown port'
   firewalld:
-    port: '{{ item.0.shutdown_port }}/tcp'
+    rich_rule: 'rule family=ipv4 source address="{{ item.1 }}" port port={{ item.0.shutdown_port }} protocol=tcp accept'
     permanent: true
     immediate: true
     state: enabled
-    source: '{{ item.1 }}'
   with_subelements:
     - '{{ tomcat_instance }}'
     - https_source
