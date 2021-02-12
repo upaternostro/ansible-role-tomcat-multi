@@ -27,13 +27,13 @@ tomcat_download_dir: '{{ tomcat_base_folder }}/tmp'
 
 tomcat_system_name: 'tomcat_app'
 
-
 # tomcat_system_home: '{{ tomcat_base_folder }}/{{ tomcat_system_user }}' # This is an optional setting to use tomcat_system_name for this system.
 
 tomcat_system_home: '{{ tomcat_base_folder }}/{{ tomcat_system_name }}'
 
 tomcat_instance:
   - instance_name: 'tomcat_app_sys1'
+    short_system_name: 'T1'
     service_enabled: true
     http_port: 8080
     http_stp: false
@@ -69,7 +69,7 @@ tomcat_instance:
     locale_country: EN
     locale_region:
     locale_variant:
-    juli_logging_format: "%1$tY.%1$tm.%1$tdT%1$tT.%1$tL%1$tz %4$-4s %5$s [%2$s]%6$s%n"
+    juli_logging_format: "%1$tY.%1$tm.%1$tdT%1$tT.%1$tL%1$tz ${shortSystemNme} %4$-4s %5$s [%2$s]%6$s%n"
     juli_logging_level: "FINE"
     debug_enable: false
     debug_port: 8000
@@ -85,6 +85,7 @@ tomcat_instance:
     tomcat_java_thread_stack_size: 512
 
   - instance_name: 'tomcat_app_sys2'
+    short_system_name: 'T2'
     service_enabled: true
     http_port: 8081
     http_stp: false
@@ -119,7 +120,7 @@ tomcat_instance:
     locale_country: EN
     locale_region:
     locale_variant:
-    juli_logging_format: "%1$tY.%1$tm.%1$tdT%1$tT.%1$tL%1$tz %4$-4s %5$s [%2$s]%6$s%n"
+    juli_logging_format: "%1$tY.%1$tm.%1$tdT%1$tT.%1$tL%1$tz ${shortSystemNme} %4$-4s %5$s [%2$s]%6$s%n"
     juli_logging_level: "FINE"
     debug_enable: false
     debug_port: 8001
@@ -199,7 +200,7 @@ tomcat_file_encoding: UTF-8
 tomcat_page_encoding: UTF-8
 
 tomcat_use_secure_flag: true
-tomcat_access_log_pattern: "%{yyyy-MM-dd}tT%{HH:mm:ss.SSSXXX}t %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{Referer}i %{User-Agent}i"
+tomcat_access_log_pattern: "%{yyyy-MM-dd}tT%{HH:mm:ss.SSSXXXZ}t ${shortSystemNme} %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{Referer}i %{User-Agent}i"
 # Also with encoding:      "%{yyyy-MM-dd}tT%{HH:mm:ss.SSSXXX}t %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{Referer}i %{Accept-Encoding}i %{User-Agent}i"
 # Without user agent and referer: "%{yyyy-MM-dd}tT%{HH:mm:ss.SSSXXX}t %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D"
 # RFC5425 compatible: "<134>1 %{yyyy-MM-dd}tT%{HH:mm:ss.SSSXXX}t %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{Referer}i %{User-Agent}i"

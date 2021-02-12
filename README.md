@@ -116,6 +116,10 @@ List of dictioneries where the tomcat instances are configured.
 
 Name of first instance. Also this variable used as name of instance folder name, start/stop script and process identifier.
 
+    short_system_name: 'TT'
+
+Optional: Use this identifier for tagging related files like logs.
+
 	service_enabled: true
 
 Enable or disable tomcat service on system startup.
@@ -242,7 +246,7 @@ Operating system (OS), browser, and other software vendors can use the code to p
 
 ### Logging related options for instances
 
-        juli_logging_format: "%1$tY.%1$tm.%1$td %1$tT.%1$tL %4$-4s %5$s [%2$s]%6$s%n"
+        juli_logging_format: "%1$tY.%1$tm.%1$tdT%1$tT.%1$tL%1$tz ${shortSystemNme} %4$-4s %5$s [%2$s]%6$s%n"
 
 Logging format for general Tomcat logs.
 
@@ -309,7 +313,7 @@ Tomcat catalina logs directory mode.
 
 Set Tomcat's access log default file extension. The Tomcat's access log default filename is hardcoded value of <instance_name>_access string.
 
-    tomcat_access_log_pattern: "%{yyyy-MM-dd hh:mm:ss.SSS}t %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{User-Agent}i %{Referer}i"
+    tomcat_access_log_pattern: "%{yyyy-MM-dd}tT%{HH:mm:ss.SSSXXXZ}t ${shortSystemNme} %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{Referer}i %{User-Agent}i"
 
 Pattern string of Tomcat access log. Tomcat [Access Logging](https://tomcat.apache.org/tomcat-9.0-doc/config/valve.html#Access_Logging):
 
