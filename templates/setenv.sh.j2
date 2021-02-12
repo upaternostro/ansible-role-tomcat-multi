@@ -21,7 +21,7 @@ export LD_LIBRARY_PATH
 
 CATALINA_OUT="${CATALINA_BASE}/logs/catalina/catalina.out"
 
-{% if tomcat_catalina_parameters is defined and tomcat_catalina_parameters|length %}
+{% if tomcat_catalina_parameters is defined %}
 CATALINA_OPTS="${CATALINA_OPTS} {{ tomcat_catalina_parameters }}"
 
 {% endif %}
@@ -75,7 +75,7 @@ if [ -r "$CATALINA_BASE/lib/logstash/logstash-gelf-1.11.1.jar" ] ; then
 fi
 {% endif %}
 
-{% if item.short_system_name is defined and item.short_system_name|length %}
+{% if item.short_system_name is defined %}
 CATALINA_OPTS="${CATALINA_OPTS} -DshortSystemName={{ item.short_system_name|default('TT') }}"
 
 {% endif %}
