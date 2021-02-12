@@ -75,6 +75,8 @@ tomcat_instance:
     debug_port: 8000
     debug_sever: '{{ ansible_hostname }}'  # or 127.0.0.1
     debug_parameter: '-agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n'
+    profiler_enable: false
+    profiler_parameter: '-agentpath:/opt/profiler/libyjpagent.so=port=8200,listen=all,delay=10000'
     # Memory sizes in megabytes (m)
     tomcat_java_heap_min: 4096
     tomcat_java_heap_max: 4096
@@ -126,6 +128,8 @@ tomcat_instance:
     debug_port: 8001
     debug_sever: '{{ ansible_hostname }}'  # or 127.0.0.1
     debug_parameter: '-agentlib:jdwp=transport=dt_socket,address=*:8001,server=y,suspend=n'
+    profiler_enable: false
+    profiler_parameter: '-agentpath:/opt/profiler/libyjpagent.so=port=8201,listen=all,delay=10000'
     # Memory sizes in megabytes (m)
     tomcat_java_heap_min: 4096
     tomcat_java_heap_max: 4096
