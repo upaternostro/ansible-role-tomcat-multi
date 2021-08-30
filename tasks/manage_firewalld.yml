@@ -7,12 +7,18 @@
   package:
     name: firewalld
     state: present
+  when: tomcat_enable_firewalld
 
 - name: ensure firewalld is running and enabled on boot
   service:
     name: firewalld
     state: started
     enabled: true
+  when: tomcat_enable_firewalld
+
+- name: check firewalld status
+  shell: 'echo $(systemctl is-active firewalld)'
+  register: service_firewalld
 
 - name: 'configure firewalld for http port'
   firewalld:
@@ -23,7 +29,9 @@
   with_subelements:
     - '{{ tomcat_instance }}'
     - http_source
-  when: not tomcat_manage_firewalld_use_zone
+  when:
+   - not tomcat_manage_firewalld_use_zone
+   - service_firewalld.stdout == 'active'
 
 - name: 'configure firewalld for ajp port'
   firewalld:
@@ -34,7 +42,9 @@
   with_subelements:
     - '{{ tomcat_instance }}'
     - ajp_source
-  when: not tomcat_manage_firewalld_use_zone
+  when:
+   - not tomcat_manage_firewalld_use_zone
+   - service_firewalld.stdout == 'active'
 
 - name: 'configure firewalld for https port'
   firewalld:
@@ -45,7 +55,9 @@
   with_subelements:
     - '{{ tomcat_instance }}'
     - https_source
-  when: not tomcat_manage_firewalld_use_zone
+  when:
+   - not tomcat_manage_firewalld_use_zone
+   - service_firewalld.stdout == 'active'
 
 - name: 'configure firewalld for jmx port'
   firewalld:
@@ -56,7 +68,9 @@
   with_subelements:
     - '{{ tomcat_instance }}'
     - jmx_source
-  when: not tomcat_manage_firewalld_use_zone
+  when:
+   - not tomcat_manage_firewalld_use_zone
+   - service_firewalld.stdout == 'active'
 
 - name: 'configure firewalld for shutdown port'
   firewalld:
@@ -67,7 +81,9 @@
   with_subelements:
     - '{{ tomcat_instance }}'
     - https_source
-  when: not tomcat_manage_firewalld_use_zone
+  when:
+   - not tomcat_manage_firewalld_use_zone
+   - service_firewalld.stdout == 'active'
 
 - name: 'configure firewalld for http port'
   firewalld:
@@ -78,7 +94,9 @@
     zone: '{{ item.http_zone }}'
   with_items:
     - '{{ tomcat_instance }}'
-  when: tomcat_manage_firewalld_use_zone
+  when:
+   - tomcat_manage_firewalld_use_zone
+   - service_firewalld.stdout == 'active'
 
 - name: 'configure firewalld for ajp port'
   firewalld:
@@ -89,7 +107,9 @@
     zone: '{{ item.ajp_zone }}'
   with_items:
     - '{{ tomcat_instance }}'
-  when: tomcat_manage_firewalld_use_zone
+  when:
+   - tomcat_manage_firewalld_use_zone
+   - service_firewalld.stdout == 'active'
 
 - name: 'configure firewalld for https port'
   firewalld:
@@ -100,7 +120,9 @@
     zone: '{{ item.https_zone }}'
   with_items:
     - '{{ tomcat_instance }}'
-  when: tomcat_manage_firewalld_use_zone
+  when:
+   - tomcat_manage_firewalld_use_zone
+   - service_firewalld.stdout == 'active'
 
 - name: 'configure firewalld for jmx port'
   firewalld:
@@ -111,7 +133,9 @@
     zone: '{{ item.jmx_zone }}'
   with_items:
     - '{{ tomcat_instance }}'
-  when: tomcat_manage_firewalld_use_zone
+  when:
+   - tomcat_manage_firewalld_use_zone
+   - service_firewalld.stdout == 'active'
 
 - name: 'configure firewalld for shutdown port'
   firewalld:
@@ -122,4 +146,6 @@
     zone: '{{ item.shutdown_zone }}'
   with_items:
     - '{{ tomcat_instance }}'
-  when: tomcat_manage_firewalld_use_zone
+  when:
+   - tomcat_manage_firewalld_use_zone
+   - service_firewalld.stdout == 'active'

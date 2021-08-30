@@ -12,6 +12,7 @@ tomcat_installer_local: false  # The true means try to copy from Ansible's local
 tomcat_download_validate_certs: false
 
 tomcat_manage_firewalld: true
+tomcat_enable_firewalld: true
 tomcat_manage_firewalld_use_zone: true
 
 # Downloadable Tomcat version
