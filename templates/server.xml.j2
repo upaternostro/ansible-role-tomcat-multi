@@ -159,6 +159,8 @@
                prefix="{{ item.1.instance_name }}_access" suffix="{{ tomcat_access_log_extension }}" renameOnRotate="true"
                pattern="{{ tomcat_access_log_pattern }}" />
 
+	<Valve className="org.apache.catalina.valves.RemoteIpValve" protocolHeader="x-forwarded-proto" />
+
       </Host>
     </Engine>
   </Service>
