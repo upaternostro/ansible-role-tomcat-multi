@@ -2,3 +2,4 @@
 *.pyc
 *.bak
 *.patch
+meta/.galaxy_install_info
