@@ -38,7 +38,7 @@ CATALINA_OPTS="${CATALINA_OPTS} -Djava.net.preferIPv4Stack=true
 JSSE_OPTS="-Djdk.tls.ephemeralDHKeySize=4096"
 {% elif tomcat_java_version >= 8 %}
 JSSE_OPTS="-Djdk.tls.ephemeralDHKeySize=2048"
-{% endif %
+{% endif %}
 
 {% if item.file_encoding is defined and item.file_encoding %}CATALINA_OPTS="${CATALINA_OPTS} -Dfile.encoding={{ item.file_encoding }} -Dsun.jnu.encoding={{ item.file_encoding }}"{% endif %}
 CATALINA_OPTS="${CATALINA_OPTS} {% if item.locale_language is defined and item.locale_language %} -Duser.language={{ item.locale_language }}{% endif %}{% if item.locale_country is defined and item.locale_country %} -Duser.country={{ item.locale_country }}{% endif %}{% if item.locale_region is defined and item.locale_region %} -Duser.region={{ item.locale_region }}{% endif %}{% if item.locale_variant is defined and item.locale_variant %} -Duser.variant={{ item.locale_variant }}{% endif %}"
