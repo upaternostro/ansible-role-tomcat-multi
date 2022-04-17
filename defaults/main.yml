@@ -90,6 +90,7 @@ tomcat_instance:
     tomcat_java_permsize_max: 384
     # Java thread stack size in kilobytes (k)
     tomcat_java_thread_stack_size: 512
+    valves: {}
 
   - instance_name: 'tomcat_app_sys2'
     short_system_name: 'T2'
@@ -143,6 +144,7 @@ tomcat_instance:
     tomcat_java_permsize_max: 384
     # Java thread stack size in kilobytes (k)
     tomcat_java_thread_stack_size: 512
+    valves: {}
 
 tomcat_native_library_enable: false
 

@@ -159,10 +159,10 @@
                prefix="{{ item.1.instance_name }}_access" suffix="{{ tomcat_access_log_extension }}" renameOnRotate="true"
                pattern="{{ tomcat_access_log_pattern }}" />
 
-        {% for key in item.1.valves.keys() %}
+{% for key in item.1.valves.keys() %}
         <Valve className="{{ key }}"{% if item.1.valves[key] %}{% for valve_attr_key in item.1.valves[key].keys() %} {{ valve_attr_key }}="{{ item.1.valves[key][valve_attr_key] }}"{% endfor %} {% endif %}/>
         
-        {% endfor %}
+{% endfor %}
       </Host>
     </Engine>
   </Service>
