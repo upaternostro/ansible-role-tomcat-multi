@@ -338,6 +338,7 @@ You can create context like this:
               maxIdle: 4
 
 It will produce a context file containing:
+
 `<Resource name="jdbc/EmployeeDB" auth="Container" type="javax.sql.DataSource" username="dbusername" password="dbpassword" driverClassName="org.hsql.jdbcDriver" url="jdbc:HypersonicSQL:database" maxTotal="8" maxIdle="4" />`
 
 #### Additional Java parameters
