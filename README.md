@@ -309,6 +309,38 @@ Java minumum permanent generation size. Memory sizes in megabytes (m). Only for 
 
 Java thread stack size in kilobytes (k)
 
+### Application context related options for instances
+
+    tomcat_engine_name: Catalina
+    
+Tomcat engine name. Default is Catalina. Catalina is the official name for the servlet container that comes with Tomcat.
+
+    tomcat_host_name: localhost
+
+Tomcat hostname. Default hostname is localhost.
+
+    contextes: {}
+
+Create one or more contexes for applications. Default is {} which means do not create extra context.
+You can create context like this:
+
+    contextes: {}
+     - geoserver1:
+         resources:
+           'jdbc/EmployeeDB':
+              auth: Container
+              type: javax.sql.DataSource
+              username: dbusername
+              password: dbpassword
+              driverClassName: org.hsql.jdbcDriver
+              url: jdbc:HypersonicSQL:database
+              maxTotal: 8
+              maxIdle: 4
+
+It will produce a context file containing:
+
+`<Resource name="jdbc/EmployeeDB" auth="Container" type="javax.sql.DataSource" username="dbusername" password="dbpassword" driverClassName="org.hsql.jdbcDriver" url="jdbc:HypersonicSQL:database" maxTotal="8" maxIdle="4" />`
+
 #### Additional Java parameters
 
 [Check Java parameters by versions.](https://chriswhocodes.com/vm-options-explorer.html)

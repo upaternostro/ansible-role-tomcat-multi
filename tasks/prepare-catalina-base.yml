@@ -162,3 +162,12 @@
   with_nested:
     - [ 'context.xml', 'server.xml', 'web.xml', 'logging.properties', 'tomcat-users.xml' ]
     - "{{ tomcat_instance }}"
+
+- name: 'generate webapp specific configuartion from template'
+  template:
+    src: 'webapp-context.xml.j2'
+    dest: "{{ tomcat_system_home }}{{ item[0].instance_name }}/conf/{{ item[0].tomcat_engine_name|default('Catalina') }}/{{ item[0].tomcat_host_name|default('localhost') }}/{{ (item[1]|dict2items)[0].key }}.xml"
+    owner: "{{ tomcat_system_user }}"
+    group: "{{ tomcat_system_group }}"
+    mode: '0640'
+  loop: "{{ tomcat_instance | subelements('contextes') }}"
