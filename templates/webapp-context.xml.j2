@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- {{ ansible_managed }} -->
+<!-- The contents of this file will be loaded for each web application -->
+<Context useHttpOnly="{% if tomcat_session_http_only == True %}true{% else %}false{% endif %}" >
+  <WatchedResource>WEB-INF/web.xml</WatchedResource>
+  <WatchedResource>WEB-INF/tomcat-web.xml</WatchedResource>
+  <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
+
+{% for key in (item[1]|dict2items)[0].value.resources.keys() %}
+  <Resource name="{{ key }}"{% if (item[1]|dict2items)[0].value.resources[key] %}{% for attr_key in (item[1]|dict2items)[0].value.resources[key].keys() %} {{ attr_key }}="{{ (item[1]|dict2items)[0].value.resources[key][attr_key] }}"{% endfor %} {% endif %}/>
+{% endfor %}
+
+</Context>
