@@ -14,7 +14,7 @@ Group={{ tomcat_system_group }}
 
 Environment=CATALINA_HOME={{ tomcat_catalina_home }}
 Environment=CATALINA_BASE={{ tomcat_system_home }}{{ item.instance_name }}
-
+Environment='UMASK={{ tomcat_system_umask }}'
 Environment=TOMCAT_USER="{{ tomcat_system_user }}"
 Environment=TOMCAT_GROUP="{{ tomcat_system_group }}"
 Environment=JAVA_HOME="{{ java_home }}"

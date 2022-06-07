@@ -180,7 +180,7 @@ tomcat_force_update: false
 tomcat_manage_user: true
 tomcat_system_user: tomcat
 tomcat_system_group: tomcat
-
+tomcat_system_umask: 0002
 
 # Username and password for manager interface
 tomcat_manager_hash_password: true
