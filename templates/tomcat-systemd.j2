@@ -9,6 +9,9 @@ StartLimitBurst=5
 [Service]
 Type=forking
 
+User={{ tomcat_system_user }}
+Group={{ tomcat_system_group }}
+
 Environment=CATALINA_HOME={{ tomcat_catalina_home }}
 Environment=CATALINA_BASE={{ tomcat_system_home }}{{ item.instance_name }}
 

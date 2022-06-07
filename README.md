@@ -250,7 +250,7 @@ Operating system (OS), browser, and other software vendors can use the code to p
 
 ### Logging related options for instances
 
-        juli_logging_format: "%1$tY.%1$tm.%1$tdT%1$tT.%1$tL%1$tz ${shortSystemNme} %4$-4s %5$s [%2$s]%6$s%n"
+        juli_logging_format: "%1$tY.%1$tm.%1$tdT%1$tT.%1$tL%1$tz ${shortSystemName} %4$-4s %5$s [%2$s]%6$s%n"
 
 Logging format for general Tomcat logs.
 
@@ -309,6 +309,38 @@ Java minumum permanent generation size. Memory sizes in megabytes (m). Only for 
 
 Java thread stack size in kilobytes (k)
 
+### Application context related options for instances
+
+    tomcat_engine_name: Catalina
+    
+Tomcat engine name. Default is Catalina. Catalina is the official name for the servlet container that comes with Tomcat.
+
+    tomcat_host_name: localhost
+
+Tomcat hostname. Default hostname is localhost.
+
+    contextes: {}
+
+Create one or more contexes for applications. Default is {} which means do not create extra context.
+You can create context like this:
+
+    contextes: {}
+     - geoserver1:
+         resources:
+           'jdbc/EmployeeDB':
+              auth: Container
+              type: javax.sql.DataSource
+              username: dbusername
+              password: dbpassword
+              driverClassName: org.hsql.jdbcDriver
+              url: jdbc:HypersonicSQL:database
+              maxTotal: 8
+              maxIdle: 4
+
+It will produce a context file containing:
+
+`<Resource name="jdbc/EmployeeDB" auth="Container" type="javax.sql.DataSource" username="dbusername" password="dbpassword" driverClassName="org.hsql.jdbcDriver" url="jdbc:HypersonicSQL:database" maxTotal="8" maxIdle="4" />`
+
 #### Additional Java parameters
 
 [Check Java parameters by versions.](https://chriswhocodes.com/vm-options-explorer.html)
@@ -331,7 +363,7 @@ Tomcat catalina logs directory mode.
 
 Set Tomcat's access log default file extension. The Tomcat's access log default filename is hardcoded value of <instance_name>_access string.
 
-    tomcat_access_log_pattern: "%{yyyy-MM-dd}tT%{HH:mm:ss.SSSXXXZ}t ${shortSystemNme} %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{Referer}i %{User-Agent}i"
+    tomcat_access_log_pattern: "%{yyyy-MM-dd}tT%{HH:mm:ss.SSSXXXZ}t ${shortSystemName} %v %h (%{X-Forwarded-For}i) %A:%p %I %u &quot;%r&quot; %s %b %D %{Referer}i %{User-Agent}i"
 
 Pattern string of Tomcat access log. Tomcat [Access Logging](https://tomcat.apache.org/tomcat-9.0-doc/config/valve.html#Access_Logging):
 
